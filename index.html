@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JB Resort — Guestbook</title>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
+  <style>
+    :root{
+      --page-max: 1200px;
+      --gap: 16px;
+      --border: 1px solid #ddd;
+      --radius: 12px;
+      --pad: 14px;
+      --header-h: 64px;
+      --shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+
+    body{
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #111;
+    }
+
+    /* Overall layout: header row + content row */
+    .page{
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: var(--header-h) 1fr;
+    }
+
+    /* Title bar */
+    header{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: var(--border);
+      background: #fff;
+    }
+
+    .brand{
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .brand h1{
+      font-size: 18px;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .brand .subtitle{
+      color: #555;
+      font-size: 13px;
+    }
+
+    /* Main content area */
+    main{
+      display: flex;
+      justify-content: center;
+      padding: var(--gap);
+    }
+
+    .content{
+      width: 100%;
+      max-width: var(--page-max);
+      display: grid;
+      grid-template-columns: 1fr 2fr; /* left info pane, right guestbook pane */
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    .panel{
+      background: #fff;
+      border: var(--border);
+      border-radius: var(--radius);
+      padding: var(--pad);
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2{
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+
+    .muted{
+      color: #555;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    /* Guestbook heading/subtext inside the panel */
+    .panel-sub{
+      color: #444;
+      margin: 0 0 12px 0;
+      font-size: 13px;
+    }
+
+    /* DataTables header cells: prevent wrap */
+    table.dataTable thead th { white-space: nowrap; }
+
+    /* Align Category filter over the Category column.
+       Table columns are: Name, Check-in, Check-out, Site, Category, Photo = 6 columns
+    */
+    #filters-row{
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* must match table columns */
+      margin-bottom: 8px;
+      align-items: end;
+    }
+
+    #category-filter{
+      grid-column: 5; /* Category column position (1-based) */
+      justify-self: start;
+    }
+
+    /* Make DataTables search align nicely underneath */
+    .dataTables_filter{
+      margin-bottom: 10px;
+    }
+
+    /* Photo thumbnails */
+    .photo-thumb{
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      margin: 0 auto;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .photo-thumb:hover{
+      transform: scale(1.15);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    #guestbook td{
+      vertical-align: middle;
+    }
+
+    /* Responsive: stack panes on smaller screens */
+    @media (max-width: 900px){
+      .content{
+        grid-template-columns: 1fr;
+      }
+      #filters-row{
+        grid-template-columns: 1fr;
+      }
+      #category-filter{
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- Top title bar -->
+    <header>
+      <div class="brand">
+        <h1>JB Resort</h1>
+        <div class="subtitle">Guestbook</div>
+      </div>
+
+      <!-- Placeholder for future header controls -->
+      <div class="muted"></div>
+    </header>
+
+    <!-- Bottom: two-pane layout -->
+    <main>
+      <div class="content">
+        <!-- Bottom-left: Info pane -->
+        <section class="panel" id="infoPane">
+          <h2>Info</h2>
+          <div class="muted">
+            Replace this with whatever you want on the main page, for example:
+            <ul>
+              <li>Welcome / short description</li>
+              <li>Check-in / check-out times</li>
+              <li>Rules &amp; quiet hours</li>
+              <li>Directions / map link</li>
+              <li>Contact info</li>
+              <li>What “Category” means</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Bottom-right: Guestbook pane -->
+        <section class="panel" id="guestbookPane">
+          <h2>Guestbook</h2>
+          <p class="panel-sub">Search, sort, and browse past &amp; upcoming guests.</p>
+
+          <!-- Category Filter Row (aligned above Category column) -->
+          <div id="filters-row">
+            <div id="category-filter">
+              <label>
+                Category:
+                <select id="categoryFilter">
+                  <option value="">All</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <table id="guestbook" class="display" style="width:100%">
+            <thead>
+              <tr>
+                <th>Guest Name</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Site</th>
+                <th>Category</th>
+                <th>Photo</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Published Google Sheets CSV link:
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTS02kw1t7eCQm5ZFa-nvfO10qy4tqCscorUBjwCvDp9guyMAFw1GONtXQUZsK6IQG2RJUw2Bfuy3P/pub?gid=0&single=true&output=csv";
+
+    function parseCSV(text) {
+      // Simple CSV parser that handles commas inside quotes.
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && inQuotes && next === '"') { cell += '"'; i++; continue; }
+        if (char === '"') { inQuotes = !inQuotes; continue; }
+
+        if (char === ',' && !inQuotes) { row.push(cell); cell = ""; continue; }
+        if ((char === '\n' || char === '\r') && !inQuotes) {
+          if (cell.length || row.length) { row.push(cell); rows.push(row); }
+          row = []; cell = "";
+          if (char === '\r' && next === '\n') i++;
+          continue;
+        }
+        cell += char;
+      }
+      if (cell.length || row.length) { row.push(cell); rows.push(row); }
+      return rows;
+    }
+
+    // This is the one you’re actually using for thumbnails (avoids Drive 403 hotlinking)
+    function toEmbeddableImageUrl(url) {
+      const u = String(url || "").trim();
+
+      // If they pasted a Drive "file/d/ID/view" link, extract ID
+      let m = u.match(/drive\.google\.com\/file\/d\/([^\/]+)/i);
+      if (m && m[1]) return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
+
+      // If they pasted a uc?export=... link, extract id=
+      m = u.match(/[?&]id=([^&]+)/i);
+      if (m && m[1] && /drive\.google\.com\/uc/i.test(u)) {
+        return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
+      }
+
+      // Otherwise assume it's already an embeddable image URL
+      return u;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeRegExp(s) {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    async function loadGuestbook() {
+      const res = await fetch(CSV_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("Could not load CSV. Check your published link.");
+      const text = await res.text();
+      const data = parseCSV(text);
+
+      // Expect row 0 = headers
+      const [headers, ...rows] = data;
+
+      // Map columns by header name (robust if you reorder columns later)
+      const colIndex = (name) =>
+        headers.findIndex(h => (h || "").trim().toLowerCase() === name);
+
+      const idxName = colIndex("guest name");
+      const idxIn   = colIndex("check-in");
+      const idxOut  = colIndex("check-out");
+      const idxSite = colIndex("site");
+      const idxCategory = colIndex("category");
+      const idxPhoto = colIndex("photo"); // optional column, can be -1
+
+      if ([idxName, idxIn, idxOut, idxSite, idxCategory].some(i => i < 0)) {
+        throw new Error("CSV headers must include: Guest Name, Check-in, Check-out, Site, Category");
+      }
+
+      const tbody = document.querySelector("#guestbook tbody");
+      tbody.innerHTML = "";
+
+      for (const r of rows) {
+        if (!r || r.every(c => !String(c || "").trim())) continue;
+
+        const rawPhotoUrl = (idxPhoto >= 0) ? (r[idxPhoto] || "").trim() : "";
+        const imgUrl = rawPhotoUrl ? toEmbeddableImageUrl(rawPhotoUrl) : "";
+
+        const photoCell = imgUrl
+          ? `<a href="${escapeHtml(rawPhotoUrl)}" target="_blank" rel="noopener">
+               <img src="${escapeHtml(imgUrl)}"
+                    alt="Guest photo"
+                    class="photo-thumb"
+                    loading="lazy">
+             </a>`
+          : "";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(r[idxName] || "")}</td>
+          <td>${escapeHtml(r[idxIn] || "")}</td>
+          <td>${escapeHtml(r[idxOut] || "")}</td>
+          <td>${escapeHtml(r[idxSite] || "")}</td>
+          <td>${escapeHtml(r[idxCategory] || "")}</td>
+          <td>${photoCell}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      // Category column (0-based): Name=0, In=1, Out=2, Site=3, Category=4, Photo=5
+      const categoryColIndex = 4;
+
+      // If already initialized, destroy and rebuild
+      if ($.fn.dataTable.isDataTable('#guestbook')) {
+        $('#guestbook').DataTable().destroy();
+      }
+
+      $('#guestbook').DataTable({
+        dom: 'ftrip',
+        pageLength: 25,
+        order: [[1, 'desc']], // Check-in column
+        columnDefs: [
+          { targets: [5], orderable: false, searchable: false }, // Photo column
+          { targets: [1,2], type: 'date' }
+        ],
+        initComplete: function () {
+          const api = this.api();
+          const select = document.getElementById("categoryFilter");
+
+          select.innerHTML = '<option value="">All</option>';
+
+          const values = api.column(categoryColIndex).data().toArray()
+            .map(v => String(v || "").trim())
+            .filter(v => v.length > 0);
+
+          Array.from(new Set(values))
+            .sort((a,b)=>a.localeCompare(b))
+            .forEach(cat => {
+              const opt = document.createElement("option");
+              opt.value = cat;
+              opt.textContent = cat;
+              select.appendChild(opt);
+            });
+
+          select.addEventListener("change", () => {
+            const v = select.value;
+            api.column(categoryColIndex)
+              .search(v ? `^${escapeRegExp(v)}$` : "", true, false)
+              .draw();
+          });
+        }
+      });
+    }
+
+    loadGuestbook().catch(err => {
+      document.body.insertAdjacentHTML("beforeend",
+        `<p style="color:#b00020;padding:12px;"><b>Error:</b> ${escapeHtml(err.message)}</p>`
+      );
+    });
+  </script>
+</body>
+</html>
