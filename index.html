@@ -1,4 +1,4 @@
-<!doctype html>
+lang<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -121,14 +121,24 @@
       justify-self: start;
     } */
 
+#category-filter{
+  display: flex;
+  justify-content: flex-end;  /* push it to the right */
+}
 
-    #category-filter label{
+#category-filter label{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/*     #category-filter label{
      display: flex;
      align-items: center;
-     gap: 6px;              /* space between text and dropdown */
-     font-weight: normal;  /* matches DataTables search */
+     gap: 6px;              
+     font-weight: normal;  
     }
-
+ */
     /* Make DataTables search align nicely underneath */
     .dataTables_filter{
       margin-bottom: 10px;
