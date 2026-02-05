@@ -239,9 +239,21 @@
   height: 100%;
 }
 
-.video-runner{
+/* .video-runner{
   position: absolute;
-  left: -140px;            /* start offscreen */
+  left: -140px;            
+  top: 50%;
+  transform: translateY(-50%);
+  animation: run-across 8s linear infinite;
+}
+ */
+
+.video-runner{
+  display: flex;
+  align-items: center;
+  gap: 16px;              /* space between images & video */
+  position: absolute;    /* keep animation working */
+  left: -300px;          /* start offscreen */
   top: 50%;
   transform: translateY(-50%);
   animation: run-across 8s linear infinite;
