@@ -232,16 +232,44 @@
   opacity: 0.9;
 }
 
+.topbar-mid{
+  flex: 1;                 /* takes the space between left & right */
+  overflow: hidden;        /* hides the reset jump */
+  position: relative;
+  height: 100%;
+}
+
+.video-runner{
+  position: absolute;
+  left: -140px;            /* start offscreen */
+  top: 50%;
+  transform: translateY(-50%);
+  animation: run-across 8s linear infinite;
+}
+
+.video-runner video{
+  height: 60px;            /* controls visible size */
+  width: auto;
+  display: block;
+}
+
+/* Animation: left → right → jump back */
+@keyframes run-across{
+  0%   { left: -140px; }
+  100% { left: 100%; }
+}
+
+
 /* Mobile: stack and keep it readable */
-@media (max-width: 700px){
+@media (max-width: 400px){
   .topbar{
     height: auto;
     padding: 12px 14px;
     align-items: flex-start;
   }
   .logo{
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
   }
   .book-btn{
     padding: 9px 10px;
@@ -264,6 +292,18 @@
         <span class="meta-sep">•</span>
         <a class="meta-item" href="tel:+18638400362">863-840-0362</a>
       </div>
+    </div>
+  </div>
+
+  <div class="topbar-mid">
+    <div class="video-runner">
+      <video
+        src="your-video.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
     </div>
   </div>
 
