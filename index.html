@@ -1,4 +1,4 @@
-lang<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -32,33 +32,6 @@ lang<!doctype html>
       min-height: 100vh;
       display: grid;
       grid-template-rows: var(--header-h) 1fr;
-    }
-
-    /* Title bar */
-    header{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 18px;
-      border-bottom: var(--border);
-      background: #fff;
-    }
-
-    .brand{
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-    }
-
-    .brand h1{
-      font-size: 18px;
-      margin: 0;
-      font-weight: 700;
-    }
-
-    .brand .subtitle{
-      color: #555;
-      font-size: 13px;
     }
 
     /* Main content area */
@@ -96,52 +69,38 @@ lang<!doctype html>
       line-height: 1.45;
     }
 
-    /* Guestbook heading/subtext inside the panel */
     .panel-sub{
       color: #444;
       margin: 0 0 12px 0;
       font-size: 13px;
     }
 
-    /* DataTables header cells: prevent wrap */
     table.dataTable thead th { white-space: nowrap; }
 
-    /* Align Category filter over the Category column.
-       Table columns are: Name, Check-in, Check-out, Site, Category, Photo = 6 columns
-    */
+    /* ✅ Align Category filter over DataTables Search (right side) */
     #filters-row{
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; /* must match table columns */
-      margin-bottom: 8px;
-      align-items: end;
+      display: flex;
+      justify-content: flex-end; /* right-justify like the Search box */
+      margin-bottom: 6px;
     }
 
-    /* #category-filter{
-      grid-column: 5; 
-      justify-self: start;
-    } */
-
-#category-filter{
-  display: flex;
-  justify-content: flex-end;  /* push it to the right */
-}
-
-#category-filter label{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/*     #category-filter label{
-     display: flex;
-     align-items: center;
-     gap: 6px;              
-     font-weight: normal;  
+    #category-filter label{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: normal;
     }
- */
-    /* Make DataTables search align nicely underneath */
+
+    #categoryFilter{
+      padding: 4px 6px;
+      font-size: 13px;
+    }
+
+    /* Keep DataTables search aligned nicely underneath */
     .dataTables_filter{
       margin-bottom: 10px;
+      float: right;
+      text-align: right;
     }
 
     /* Photo thumbnails */
@@ -164,235 +123,188 @@ lang<!doctype html>
       vertical-align: middle;
     }
 
+    .topbar{
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: var(--border);
+      background: #fff;
+      gap: 12px;
+    }
 
-.topbar{
-  min-height: var(--header-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-  border-bottom: var(--border);
-  background: #fff;
-  gap: 12px;
-}
+    .topbar-left{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
 
-.topbar-left{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
+    .logo{
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+      max-width:none;
+      max-height:none;
+      flex-shrink: 0;
+    }
 
-.logo{
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  border-radius: 8px;
-  max-width:none;
-  max-height:none;
-  flex-shrink: 0;
-}
+    .brand-block{
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
 
-.brand-block{
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
+    .brand-name{
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-align: center;
+    }
 
-.brand-name{
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.1;
-  text-align: center;
-}
+    .brand-meta{
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: #555;
+    }
 
-.brand-meta{
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 13px;
-  color: #555;
-}
+    .meta-item{
+      color: #555;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+    }
 
-.meta-item{
-  color: #555;
-  text-decoration: none;
-  text-align: center;
-  display: inline-block;
-}
+    .meta-item:hover{
+      text-decoration: underline;
+    }
 
-.meta-item:hover{
-  text-decoration: underline;
-}
+    .meta-sep{
+      color: #aaa;
+    }
 
-.meta-sep{
-  color: #aaa;
-}
+    .topbar-right{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.topbar-right{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .book-btn{
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.15);
 
-/* .book-btn{
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  background: #111;
-  color: #fff;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
+      background: linear-gradient(
+        90deg,
+        #ffe6e6,
+        #fff2cc,
+        #e6ffea,
+        #e6f0ff,
+        #f0e6ff
+      );
 
-  .book-btn:hover{
-  opacity: 0.9;
-}
-} */
+      color: #000;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
 
-.book-btn{
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.15);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
 
-  /* light rainbow background */
-  background: linear-gradient(
-    90deg,
-    #ffe6e6,
-    #fff2cc,
-    #e6ffea,
-    #e6f0ff,
-    #f0e6ff
-  );
+    .book-btn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.18);
+    }
 
-  color: #000;
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 700;
+    .topbar-mid{
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+    }
 
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
+    .video-runner{
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: absolute;
+      left: -300px;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: run-across 8s linear infinite;
+    }
 
-.book-btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.18);
-}
+    .video-runner img,
+    .video-runner video{
+      height: 180px;
+      width: auto;
+      display: block;
+    }
 
+    @keyframes run-across{
+      0%   { left: -140px; }
+      100% { left: 100%; }
+    }
 
-
-.topbar-mid{
-  flex: 1;                 /* takes the space between left & right */
-  overflow: hidden;        /* hides the reset jump */
-  position: relative;
-  height: 100%;
-}
-
-/* .video-runner{
-  position: absolute;
-  left: -140px;            
-  top: 50%;
-  transform: translateY(-50%);
-  animation: run-across 8s linear infinite;
-}
- */
-
-.video-runner{
-  display: flex;
-  align-items: center;
-  gap: 16px;              /* space between images & video */
-  position: absolute;    /* keep animation working */
-  left: -300px;          /* start offscreen */
-  top: 50%;
-  transform: translateY(-50%);
-  animation: run-across 8s linear infinite;
-}
-
-.video-runner img,
-.video-runner video{
-  height: 180px;    /* same visual height */
-  width: auto;
-  display: block;
-}
-
-.video-runner video{
-  height: 180px;            /* controls visible size */
-  width: auto;
-  display: block;
-}
-
-/* Animation: left → right → jump back */
-@keyframes run-across{
-  0%   { left: -140px; }
-  100% { left: 100%; }
-}
-
-
-/* Mobile: stack and keep it readable */
-@media (max-width: 400px){
-  .topbar{
-    height: auto;
-    padding: 12px 14px;
-    align-items: flex-start;
-  }
-  .logo{
-    width: 60px;
-    height: 60px;
-  }
-  .book-btn{
-    padding: 9px 10px;
-  }
-}
- 
+    @media (max-width: 400px){
+      .topbar{
+        height: auto;
+        padding: 12px 14px;
+        align-items: flex-start;
+      }
+      .logo{
+        width: 60px;
+        height: 60px;
+      }
+      .book-btn{
+        padding: 9px 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <div class="page">
-    <!-- Top title bar -->
-<header class="topbar">
-  <div class="topbar-left">
-    <img class="logo" src="Logo.jpg" alt="JB Resort logo">
-    <div class="brand-block">
-      <div class="brand-name">JB Resort</div>
-      <div class="brand-meta">
-        <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br><br>863-840-0362</span>
+    <header class="topbar">
+      <div class="topbar-left">
+        <img class="logo" src="Logo.jpg" alt="JB Resort logo">
+        <div class="brand-block">
+          <div class="brand-name">JB Resort</div>
+          <div class="brand-meta">
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br><br>863-840-0362</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="topbar-mid">
-    <div class="video-runner">
-      <img class="logo" src="IMG_2793.jpg" alt="Campground">
-      <video
-        src="JamieDance.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-      ></video>
-      <img class="logo" src="IMG_2711.jpg" alt="GuestPullingIn">
-      <img class="logo" src="ArrowRight.png" alt="==>">
-    </div>
-  </div>
+      <div class="topbar-mid">
+        <div class="video-runner">
+          <img class="logo" src="IMG_2793.jpg" alt="Campground">
+          <video src="JamieDance.mp4" autoplay muted loop playsinline></video>
+          <img class="logo" src="IMG_2711.jpg" alt="GuestPullingIn">
+          <img class="logo" src="ArrowRight.png" alt="==>">
+        </div>
+      </div>
 
-  <div class="topbar-right">
-    <a class="book-btn" href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&adults=1&children=0&srid=34460cee-91a9-4e8c-822b-dc8ec7984009" target="_blank" rel="noopener">
-      Book on HipCamp
-    </a>
-  </div>
-</header>
+      <div class="topbar-right">
+        <a class="book-btn"
+           href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&adults=1&children=0&srid=34460cee-91a9-4e8c-822b-dc8ec7984009"
+           target="_blank"
+           rel="noopener">
+          Book on HipCamp
+        </a>
+      </div>
+    </header>
 
-
-    <!-- Bottom: two-pane layout -->
     <main>
       <div class="content">
-        <!-- Bottom-left: Info pane -->
         <section class="panel" id="infoPane">
           <h2>Info</h2>
           <div class="muted">
@@ -402,25 +314,14 @@ lang<!doctype html>
             10 minutes from downtown Sebring and shopping.<br><br>
             Our 12.5 acres are fully fenced in. Nice for walking<br><br>
             We're dog friends.  Dogs can run free.  But please be responsibe for your dog.<br><br>
-
             Events: We're too small to schedule events&mdash;by time we listed one, we'd be full.  The events are what you make.  Get some of your camping friends to meet up here.  That's when weekends tend to be the most fun.<br><br>
-<!--             <ul>
-              <li>Welcome / short description</li>
-              <li>Check-in / check-out times</li>
-              <li>Rules &amp; quiet hours</li>
-              <li>Directions / map link</li>
-              <li>Contact info</li>
-              <li>What “Category” means</li>
-            </ul> -->
           </div>
         </section>
 
-        <!-- Bottom-right: Guestbook pane -->
         <section class="panel" id="guestbookPane">
           <h2>Guestbook</h2>
           <p class="panel-sub">Search, sort, and browse our guests book.  Please note the "Category" option.</p>
 
-          <!-- Category Filter Row (aligned above Category column) -->
           <div id="filters-row">
             <div id="category-filter">
               <label>
@@ -451,11 +352,9 @@ lang<!doctype html>
   </div>
 
   <script>
-    // Published Google Sheets CSV link:
     const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTS02kw1t7eCQm5ZFa-nvfO10qy4tqCscorUBjwCvDp9guyMAFw1GONtXQUZsK6IQG2RJUw2Bfuy3P/pub?gid=0&single=true&output=csv";
 
     function parseCSV(text) {
-      // Simple CSV parser that handles commas inside quotes.
       const rows = [];
       let row = [];
       let cell = "";
@@ -481,21 +380,17 @@ lang<!doctype html>
       return rows;
     }
 
-    // This is the one you’re actually using for thumbnails (avoids Drive 403 hotlinking)
     function toEmbeddableImageUrl(url) {
       const u = String(url || "").trim();
 
-      // If they pasted a Drive "file/d/ID/view" link, extract ID
       let m = u.match(/drive\.google\.com\/file\/d\/([^\/]+)/i);
       if (m && m[1]) return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
 
-      // If they pasted a uc?export=... link, extract id=
       m = u.match(/[?&]id=([^&]+)/i);
       if (m && m[1] && /drive\.google\.com\/uc/i.test(u)) {
         return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
       }
 
-      // Otherwise assume it's already an embeddable image URL
       return u;
     }
 
@@ -518,10 +413,8 @@ lang<!doctype html>
       const text = await res.text();
       const data = parseCSV(text);
 
-      // Expect row 0 = headers
       const [headers, ...rows] = data;
 
-      // Map columns by header name (robust if you reorder columns later)
       const colIndex = (name) =>
         headers.findIndex(h => (h || "").trim().toLowerCase() === name);
 
@@ -530,7 +423,7 @@ lang<!doctype html>
       const idxOut  = colIndex("check-out");
       const idxSite = colIndex("site");
       const idxCategory = colIndex("category");
-      const idxPhoto = colIndex("photo"); // optional column, can be -1
+      const idxPhoto = colIndex("photo");
 
       if ([idxName, idxIn, idxOut, idxSite, idxCategory].some(i => i < 0)) {
         throw new Error("CSV headers must include: Guest Name, Check-in, Check-out, Site, Category");
@@ -566,10 +459,8 @@ lang<!doctype html>
         tbody.appendChild(tr);
       }
 
-      // Category column (0-based): Name=0, In=1, Out=2, Site=3, Category=4, Photo=5
       const categoryColIndex = 4;
 
-      // If already initialized, destroy and rebuild
       if ($.fn.dataTable.isDataTable('#guestbook')) {
         $('#guestbook').DataTable().destroy();
       }
@@ -577,9 +468,9 @@ lang<!doctype html>
       $('#guestbook').DataTable({
         dom: 'ftrip',
         pageLength: 25,
-        order: [[1, 'desc']], // Check-in column
+        order: [[1, 'desc']],
         columnDefs: [
-          { targets: [5], orderable: false, searchable: false }, // Photo column
+          { targets: [5], orderable: false, searchable: false },
           { targets: [1,2], type: 'date' }
         ],
         initComplete: function () {
