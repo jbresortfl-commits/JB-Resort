@@ -27,14 +27,12 @@
       color: #111;
     }
 
-    /* Overall layout: header row + content row */
     .page{
       min-height: 100vh;
       display: grid;
       grid-template-rows: var(--header-h) 1fr;
     }
 
-    /* Main content area */
     main{
       display: flex;
       justify-content: center;
@@ -45,7 +43,7 @@
       width: 100%;
       max-width: var(--page-max);
       display: grid;
-      grid-template-columns: 1fr 2fr; /* left info pane, right guestbook pane */
+      grid-template-columns: 1fr 2fr;
       gap: var(--gap);
       align-items: start;
     }
@@ -77,10 +75,9 @@
 
     table.dataTable thead th { white-space: nowrap; }
 
-    /* ✅ Align Category filter over DataTables Search (right side) */
     #filters-row{
       display: flex;
-      justify-content: flex-end; /* right-justify like the Search box */
+      justify-content: flex-end;
       margin-bottom: 6px;
     }
 
@@ -96,14 +93,12 @@
       font-size: 13px;
     }
 
-    /* Keep DataTables search aligned nicely underneath */
     .dataTables_filter{
       margin-bottom: 10px;
       float: right;
       text-align: right;
     }
 
-    /* Photo thumbnails */
     .photo-thumb{
       width: 40px;
       height: 40px;
@@ -184,10 +179,6 @@
       text-decoration: underline;
     }
 
-    .meta-sep{
-      color: #aaa;
-    }
-
     .topbar-right{
       display: flex;
       align-items: center;
@@ -217,6 +208,7 @@
 
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
       transition: transform 0.15s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
     }
 
     .book-btn:hover{
@@ -254,27 +246,12 @@
       100% { left: 100%; }
     }
 
-    @media (max-width: 400px){
-      .topbar-mid{
-        display: none;
-      }
-      .topbar{
-        /* height: auto; */
-        padding: 10px 12px;
-        gap: 8px;
-        /*align-items: flex-start;*/
-      }
-      .logo{
-        width: 60px;
-        height: 60px;
-      }
-      .book-btn{
-        /* padding: 9px 10px; */
-        white-space:nowrap;
-      }
-      .content{
-        grid-template-columns: 1fr;  /* one column */
-      }
+    /* Phone layout */
+    @media (max-width: 700px){
+      .topbar-mid{ display: none; }
+      .topbar{ padding: 10px 12px; gap: 8px; }
+      .logo{ width: 60px; height: 60px; }
+      .content{ grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -321,14 +298,14 @@
             We supply the beautiful and spacious grounds including pool, hot-tub, pool table, bar/clubhouse (BYOB).<br><br>
             10 minutes from downtown Sebring and shopping.<br><br>
             Our 12.5 acres are fully fenced in. Nice for walking.<br><br>
-            We're dog-friendly.  Dogs can run free.  But please be responsible for your dog.<br><br>
-            Events: We're too small to schedule events &mdash; by time we listed one, we'd be full.  The events are what you make.  Get some of your camping friends to meet up here.  That's when weekends tend to be the most fun.<br><br>
+            We're dog-friendly. Dogs can run free. But please be responsible for your dog.<br><br>
+            Events: We're too small to schedule events &mdash; by time we listed one, we'd be full. The events are what you make. Get some of your camping friends to meet up here. That's when weekends tend to be the most fun.<br><br>
           </div>
         </section>
 
         <section class="panel" id="guestbookPane">
           <h2>Guestbook</h2>
-          <p class="panel-sub">Search, sort, and browse our guests book.  Please note the "Category" option.</p>
+          <p class="panel-sub">Search, sort, and browse our guests book. Please note the "Category" option.</p>
 
           <div id="filters-row">
             <div id="category-filter">
@@ -473,13 +450,13 @@
         $('#guestbook').DataTable().destroy();
       }
 
-      const table $('#guestbook').DataTable({
+      const table = $('#guestbook').DataTable({
         dom: 'ftrip',
         pageLength: 25,
         order: [[1, 'desc']],
         columnDefs: [
           { targets: [5], orderable: false, searchable: false },
-          { targets: [1,2], type: 'date' },
+          { targets: [1,2], type: 'date' }
         ],
         initComplete: function () {
           const api = this.api();
@@ -509,17 +486,14 @@
         }
       });
 
+      // Phone-only hide/show for Check-out column (index 2)
       function updateCheckoutVisibility(){
-        const isPhone = window.matchMedia("(max-width: 400px)").matches;
-        table.column(2).visible(!isPhone); // 2 = Check-out column
+        const isPhone = window.matchMedia("(max-width: 700px)").matches;
+        table.column(2).visible(!isPhone);
       }
 
-      // Run once on load
       updateCheckoutVisibility();
-
-      // Re-run on resize
       window.addEventListener("resize", updateCheckoutVisibility);
-
     }
 
     loadGuestbook().catch(err => {
