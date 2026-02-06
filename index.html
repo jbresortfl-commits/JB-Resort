@@ -264,7 +264,6 @@
         gap: 8px;
         /*align-items: flex-start;*/
       }
-
       .logo{
         width: 60px;
         height: 60px;
@@ -272,6 +271,9 @@
       .book-btn{
         /* padding: 9px 10px; */
         white-space:nowrap;
+      }
+      .content{
+        grid-template-columns: 1fr;  /* one column */
       }
     }
   </style>
@@ -471,13 +473,13 @@
         $('#guestbook').DataTable().destroy();
       }
 
-      $('#guestbook').DataTable({
+      const table $('#guestbook').DataTable({
         dom: 'ftrip',
         pageLength: 25,
         order: [[1, 'desc']],
         columnDefs: [
           { targets: [5], orderable: false, searchable: false },
-          { targets: [1,2], type: 'date' }
+          { targets: [1,2], type: 'date' },
         ],
         initComplete: function () {
           const api = this.api();
@@ -506,6 +508,18 @@
           });
         }
       });
+
+      function updateCheckoutVisibility(){
+        const isPhone = window.matchMedia("(max-width: 400px)").matches;
+        table.column(2).visible(!isPhone); // 2 = Check-out column
+      }
+
+      // Run once on load
+      updateCheckoutVisibility();
+
+      // Re-run on resize
+      window.addEventListener("resize", updateCheckoutVisibility);
+
     }
 
     loadGuestbook().catch(err => {
