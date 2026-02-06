@@ -490,6 +490,7 @@
       function updateCheckoutVisibility(){
         const isPhone = window.matchMedia("(max-width: 700px)").matches;
         table.column(2).visible(!isPhone);
+        table.column(3).visible(!isPhone);
       }
 
       updateCheckoutVisibility();
