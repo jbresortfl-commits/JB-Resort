@@ -253,10 +253,10 @@
       .logo{ width: 60px; height: 60px; }
       .content{ grid-template-columns: 1fr; }
 
-       /* Make Guest Name column thinner
+       /* Make Guest column thinner */
       #guestbook th:nth-child(1),
       #guestbook td:nth-child(1){
-          width: 75%;
+          width: 85%;
         max-width: 75%;
         white-space: normal;   /* allow wrapping */
         word-break: break-word;
@@ -330,7 +330,7 @@
           <table id="guestbook" class="display" style="width:100%">
             <thead>
               <tr>
-                <th>Guest Name</th>
+                <th>Guest</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
                 <th>Site</th>
@@ -412,7 +412,7 @@
       const colIndex = (name) =>
         headers.findIndex(h => (h || "").trim().toLowerCase() === name);
 
-      const idxName = colIndex("guest name");
+      const idxName = colIndex("guest");
       const idxIn   = colIndex("check-in");
       const idxOut  = colIndex("check-out");
       const idxSite = colIndex("site");
@@ -420,7 +420,7 @@
       const idxPhoto = colIndex("photo");
 
       if ([idxName, idxIn, idxOut, idxSite, idxCategory].some(i => i < 0)) {
-        throw new Error("CSV headers must include: Guest Name, Check-in, Check-out, Site, Category");
+        throw new Error("CSV headers must include: Guest, Check-in, Check-out, Site, Category");
       }
 
       const tbody = document.querySelector("#guestbook tbody");
