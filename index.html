@@ -252,6 +252,15 @@
       .topbar{ padding: 10px 12px; gap: 8px; }
       .logo{ width: 60px; height: 60px; }
       .content{ grid-template-columns: 1fr; }
+
+       /* Make Guest Name column thinner */
+      #guestbook th:nth-child(1),
+      #guestbook td:nth-child(1){
+          width: 75%;
+        max-width: 75%;
+        white-space: normal;   /* allow wrapping */
+        word-break: break-word;
+      }
     }
   </style>
 </head>
