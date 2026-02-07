@@ -120,9 +120,9 @@
     /* Top bar */
     .topbar{
       min-height: var(--header-h);
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
       padding: 0 18px;
       border-bottom: var(--border);
       background: #fff;
@@ -181,6 +181,7 @@
 
     .topbar-right{
       display: flex;
+      justify-content: center;
       align-items: center;
       gap: 10px;
     }
@@ -216,33 +217,13 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.18);
     }
 
-    .topbar-mid{
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-      height: 100%;
-    }
+    
 
-    .video-runner{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      position: absolute;
-      left: -300px;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: run-across 8s linear infinite;
-    }
+    
 
-    .video-runner img,
-    .video-runner video{
-      height: 180px;
-      width: auto;
-      display: block;
-    }
+    
 
-    @keyframes run-across{
-      0%   { left: -140px; }
+    
       100% { left: 100%; }
     }
 
@@ -372,8 +353,9 @@
 
     /* Phone layout */
     @media (max-width: 1300px){
-      .topbar-mid{ display: none; }
+      
       .topbar{ padding: 10px 12px; gap: 8px; }
+      .topbar-right{ justify-self: center; }
       .logo{ width: 60px; height: 60px; }
 
       /* Make Guest column thinner (still helpful on phone) */
@@ -426,15 +408,7 @@
           </div>
         </div>
       </div>
-
-      <div class="topbar-mid">
-        <div class="video-runner">
-          <img class="logo" src="IMG_2793.jpg" alt="Campground">
-          <video src="JamieDance.mp4" autoplay muted loop playsinline></video>
-          <img class="logo" src="IMG_2711.jpg" alt="GuestPullingIn">
-          <img class="logo" src="ArrowRight.png" alt="==>">
-        </div>
-      </div>
+</div>
 
       <div class="topbar-right">
         <a class="book-btn"
