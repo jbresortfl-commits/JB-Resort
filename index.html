@@ -342,6 +342,17 @@
       opacity: 1;
     }
 
+    .section-subtitle{
+      background: #e6f0ff;          /* same pale blue as button */
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+      margin: 0 0 10px 0;
+    }
+
+
     /* Phone layout */
     @media (max-width: 1300px){
 .topbar{ padding: 10px 12px; gap: 8px; grid-template-columns: auto 1fr; }
@@ -393,7 +404,7 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>.<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>..<br>863-840-0362</span>
           </div>
         </div>
       </div>
@@ -502,7 +513,7 @@
             <section class="tab-panel" id="tab-restaurants" role="tabpanel" aria-labelledby="btn-restaurants">
               <h2>Restaurants and Bars</h2>
 
-              <h3 style="margin: 0 0 10px 0; font-size: 14px;">Our Favorite Restaurants and Bars</h3>
+              <h3 class="section-subtitle">Our Favorite Restaurants and Bars</h3>
               <table id="favRestaurantsTable" class="display" style="width:100%; margin-bottom: 18px;">
                 <thead>
                   <tr>
@@ -516,7 +527,7 @@
                 <tbody></tbody>
               </table>
 
-              <h3 style="margin: 0 0 10px 0; font-size: 14px;">Other Popular Restaurants and Bars</h3>
+              <h3 class="section-subtitle">Other Popular Restaurants and Bars</h3>
               <table id="otherRestaurantsTable" class="display" style="width:100%">
                 <thead>
                   <tr>
