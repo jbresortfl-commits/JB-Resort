@@ -352,6 +352,33 @@
       margin: 0 0 10px 0;
     }
 
+    .rules-list{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 8px 16px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .rules-list dt{
+      font-weight: 700;
+      color: #111;
+    }
+
+    .rules-list dd{
+      margin: 0;
+      color: #555;
+    }
+
+    /* Phone-friendly */
+    @media (max-width: 600px){
+      .rules-list{
+        grid-template-columns: 1fr;
+      }
+      .rules-list dt{
+        margin-top: 8px;
+      }
+    }
 
     /* Phone layout */
     @media (max-width: 1300px){
@@ -404,7 +431,7 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>....<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>.<br>863-840-0362</span>
           </div>
         </div>
       </div>
@@ -554,93 +581,107 @@
             <section class="tab-panel" id="tab-rules" role="tabpanel" aria-labelledby="btn-rules">
               <h2>Details & Rules</h2>
               <div class="muted">
-                <ul>
-                  <li><strong>Wi-Fi:</strong>
-                    Netgear4E1D5F (password: sharedsecret);
-                    NetgearBolton5 (password: were88*NOT);
+                <dl class="rules-list">
+
+                  <dt>Wi-Fi</dt>
+                  <dd>
+                    Netgear4E1D5F (password: sharedsecret);<br>
+                    NetgearBolton5 (password: were88*NOT);<br>
                     JamiesBarn (password: JamiesBarn)
-                  </li>
+                  </dd>
 
-                  <li><strong>Dogs on property:</strong>
-                    Black (female): Diva;
+                  <dt>Owner's Dogs</dt>
+                  <dd>
+                    Black (female): Diva;<br>
                     White/Tan (female): Artemis
-                  </li>
+                  </dd>
 
-                  <li><strong>Trash:</strong>
-                    Trash may be placed in any of the three cans located across the main drive and partially hidden by trees.
-                    The county does not offer recycling.
-                    Please do not leave trash outside your RV unless it is fully secured—dogs may get into it and tear bags open.
-                  </li>
+                  <dt>Your Dogs</dt>
+                  <dd>
+                    Dogs may run free on the property.
+                    Please supervise your dog at all times and ensure they do not approach other guests without permission.
+                    Respect other guests' preferences regarding interaction with pets.
+                  </dd>
 
-                  <li><strong>Pool:</strong>
-                    The pool is unheated and uses saltwater or chlorine, depending on water temperature.
-                  </li>
+                  <dt>Trash</dt>
+                  <dd>
+                    Use any of the three trash cans across the main drive, partially hidden by trees.
+                    The county does not recycle.
+                    Please do not leave trash outside your RV unless secured—dogs may get into it.
+                  </dd>
 
-                  <li><strong>Hot tub:</strong>
-                    Feel free to use the hot tub. Please rinse off before use.
-                    Close the lid after use when the daytime temperature is below 70°F.
-                  </li>
+                  <dt>Pool</dt>
+                  <dd>
+                    Unheated; uses saltwater or chlorine depending on water temperature.
+                  </dd>
 
-                  <li><strong>Outdoor shower:</strong>
+                  <dt>Hot tub</dt>
+                  <dd>
+                    Please rinse before use.
+                    Close the lid after use when daytime temperatures are below 70°F.
+                  </dd>
+
+                  <dt>Outdoor shower</dt>
+                  <dd>
                     Located next to the pool.
-                    Water may take up to two minutes to reach the desired temperature and can become very hot.
-                  </li>
+                    Water may take up to two minutes to heat and can become very hot.
+                  </dd>
 
-                  <li>The entire property is fully fenced.</li>
+                  <dt>Fence</dt>
+                  <dd>
+                    The entire property is fully fenced.
+                  </dd>
 
-                  <li><strong>Washer &amp; Dryer:</strong>
+                  <dt>Washer &amp; Dryer</dt>
+                  <dd>
                     Located in the garage (large silver Quonset hut).
-                    If the door is locked, please ask for the access code.
-                  </li>
+                    Ask for the access code if locked.
+                  </dd>
 
-                  <li><strong>Guests:</strong>
-                    Please ask us (Bolton or Jamie) before inviting any guests.
-                    For insurance purposes, all guests must be booked through HipCamp.com.
-                  </li>
+                  <dt>Guests</dt>
+                  <dd>
+                    Please ask Bolton or Jamie before inviting guests.
+                    For insurance purposes, all guests must be booked through HipCamp.
+                  </dd>
 
-                  <li><strong>Septic system:</strong>
-                    Do <em>not</em> flush the following items:
-                    flushable wipes, baby wipes, feminine hygiene products (tampons/pads),
-                    makeup remover wipes, condoms, or paper towels.
-                    These items will clog the septic pump.
-                  </li>
+                  <dt>Septic system</dt>
+                  <dd>
+                    Do not flush wipes, feminine hygiene products, condoms, makeup wipes,
+                    or paper towels. These items will clog the septic pump.
+                  </dd>
 
-                  <li>Please prevent dogs from digging in flower beds or mulch areas.</li>
+                  <dt>Quiet hours</dt>
+                  <dd>
+                    10:30 PM – 8:00 AM (Sun–Thu); 11:00 PM – 8:00 AM (Fri–Sat)
+                  </dd>
 
-                  <li><strong>Quiet hours:</strong>
-                    10:30 PM – 8:00 AM (Sunday–Thursday);
-                    11:00 PM – 8:00 AM (Friday–Saturday).
-                  </li>
-
-                  <li><strong>Parking:</strong>
-                    Park only in designated areas for your site.
+                  <dt>Parking</dt>
+                  <dd>
+                    Park only in designated areas.
                     Do not block walkways, doors, or driveways.
-                  </li>
+                  </dd>
 
-                  <li><strong>Firewood:</strong>
+                  <dt>Firewood</dt>
+                  <dd>
                     Use by permission only.
-                    We have a limited supply.
-                    Firewood is also available at Home Depot and Lowe’s.
-                  </li>
+                    Limited supply available.
+                    Firewood may be purchased at Home Depot or Lowe’s.
+                  </dd>
 
-                  <li><strong>Fires:</strong>
-                    Fires must be contained in a portable, off-the-ground fire pit or the designated pit at your site.
-                    No fires in grass areas.
-                    No fires during county-designated fire bans.
-                  </li>
+                  <dt>Fires</dt>
+                  <dd>
+                    Fires must be in a portable off-ground pit or designated pit.
+                    No fires in grass areas or during county fire bans.
+                  </dd>
 
-                  <li><strong>Coals &amp; ash:</strong>
-                    Fully extinguish all hot coals before disposal.
-                    Please dump ashes only into fire pits or ask us for the proper disposal location.
-                  </li>
+                  <dt>Personal property</dt>
+                  <dd>
+                    Owners are not responsible for lost or damaged items.
+                    Secure all belongings properly.
+                  </dd>
 
-                  <li><strong>Personal property:</strong>
-                    Property owners are not responsible for personal items.
-                    If items blow around or cause damage, responsibility lies with the guest.
-                    Please secure all belongings properly.
-                  </li>
+                </dl>
 
-                </ul>
               </div>
             </section>
 
