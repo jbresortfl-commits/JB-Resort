@@ -23,6 +23,7 @@
 
     body{
       margin: 0;
+      scrollbar-gutter: stable;
       font-family: Arial, sans-serif;
       background: #fafafa;
       color: #111;
@@ -258,36 +259,44 @@
     .tablist{
       display: flex;
       flex-wrap: wrap;
-      gap: 0;
+      gap: 6px;
+      padding: 6px;
       border-bottom: var(--border);
       background: #fff;
     }
 
     .tab-btn{
       appearance: none;
-      border: 0;
-      background: transparent;
-      padding: 10px 14px;
-      height: var(--tab-h);
+      box-sizing: border-box;
+
+      border: 1px solid rgba(0,0,0,0.18); /* always present to keep width stable */
+      background: #fff;
+
+      padding: 10px 12px;
+      min-height: var(--tab-h);
+
+      border-radius: 10px;
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
       color: #333;
-      border-right: var(--border);
       white-space: nowrap;
-    }
-
-    .tab-btn:last-child{
-      border-right: 0;
+      flex: 0 0 auto; /* stable sizing; phone layout handled in media query */
     }
 
     .tab-btn:hover{
       background: #f7f7f7;
     }
 
+    .tab-btn:focus-visible{
+      outline: 2px solid rgba(6,69,173,0.45);
+      outline-offset: 2px;
+    }
+
     .tab-btn[aria-selected="true"]{
       background: #111;
       color: #fff;
+      border-color: #111; /* same border width, so no reflow */
     }
 
     .tab-panels{
@@ -301,6 +310,7 @@
     .tab-panel.active{
       display: block;
     }
+
 
     /* Photos grid */
     .photo-grid{
@@ -387,7 +397,21 @@
         height: 112px;
       }
     }
-  </style>
+  
+    /* Phone: keep tab wrapping stable (2 columns) */
+    @media (max-width: 700px){
+      .tablist{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+      .tab-btn{
+        width: 100%;
+        white-space: normal; /* allow wrap inside the tab instead of reflowing the bar */
+        text-align: center;
+      }
+    }
+</style>
 </head>
 
 <body>
