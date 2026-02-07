@@ -16,7 +16,7 @@
       --border: 1px solid #ddd;
       --radius: 12px;
       --pad: 14px;
-      --header-h: 120px;
+      --header-h: 180px;
       --shadow: 0 1px 6px rgba(0,0,0,0.06);
       --tab-h: 44px;
     }
@@ -32,7 +32,7 @@
     .page{
       min-height: 100vh;
       display: grid;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: var(--header-h) 1fr;
     }
 
     main{
@@ -119,14 +119,14 @@
 
     /* Top bar */
     .topbar{
-      position: relative;
+      min-height: var(--header-h);
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      padding: 10px 18px;
+      padding: 0 18px;
       border-bottom: var(--border);
       background: #fff;
       gap: 12px;
+      position: relative; /* enables centered button */
     }
 
     .topbar-left{
@@ -186,7 +186,6 @@
       transform: translate(-50%, -50%);
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
     }
 
@@ -220,15 +219,7 @@
       transform: translateY(-1px);
       box-shadow: 0 3px 6px rgba(0,0,0,0.18);
     }
-
-    
-
-    
-
-    
-
-    
-      100% { left: 100%; }
+100% { left: 100%; }
     }
 
     /* Tabs */
@@ -357,9 +348,7 @@
 
     /* Phone layout */
     @media (max-width: 1300px){
-      
-      .topbar{ padding: 10px 12px; gap: 8px; }
-
+.topbar{ padding: 10px 12px; gap: 8px; }
       .logo{ width: 60px; height: 60px; }
 
       /* Make Guest column thinner (still helpful on phone) */
@@ -385,10 +374,20 @@
     }
   
     /* Phone: keep tab wrapping stable (2 columns) */
-    @media (max-width: 700px){
-      /* keep the centered button from feeling huge on phones */
-      .book-btn{ padding: 9px 12px; font-size: 12px; }
+    
+    /* Very small phones: avoid overlap between centered button and left logo block */
+    @media (max-width: 420px){
+      .topbar{
+        padding: 10px 12px;
+      }
+      .topbar-right{
+        position: static;
+        transform: none;
+        margin-left: auto;
+      }
+    }
 
+@media (max-width: 700px){
       .tablist{
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -411,11 +410,11 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>..<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>...<br>863-840-0362</span>
           </div>
         </div>
       </div>
-</div>
+      </div>
 
       <div class="topbar-right">
         <a class="book-btn"
