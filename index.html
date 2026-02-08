@@ -215,9 +215,6 @@
       transform: translateY(-1px);
       box-shadow: 0 3px 6px rgba(0,0,0,0.18);
     }
-100% { left: 100%; }
-    }
-
     /* Tabs */
     .tabs{
       margin-bottom: var(--gap);
@@ -298,6 +295,7 @@
     }
 
     .photo-item img{
+      cursor: zoom-in;
       width: 160px;
       height: 120px;
       object-fit: cover;
@@ -400,9 +398,11 @@
 
       .photo-item,
       .photo-item img{
+      cursor: zoom-in;
         width: 150px;
       }
       .photo-item img{
+      cursor: zoom-in;
         height: 112px;
       }
     }
@@ -420,6 +420,65 @@
         text-align: center;
       }
     }
+
+    /* Photos: full-size viewer (below top bar, inside Photos tab) */
+    .photo-viewer{
+      display: none;
+      border: var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: #fff;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .photo-viewer.active{ display: block; }
+
+    .photo-viewer-top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .photo-viewer-title{
+      font-weight: 700;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .photo-viewer-close{
+      appearance: none;
+      border: 1px solid rgba(0,0,0,0.18);
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .photo-viewer-close:hover{ background: #f7f7f7; }
+
+    .photo-viewer img{
+      width: 100%;
+      max-height: 75vh;          /* fill most of the page below the top bar */
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: #fafafa;
+      display: block;
+    }
+
+    .photo-viewer-caption{
+      margin-top: 8px;
+      color: #555;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    /* When viewer is open, hide the thumbnail grid */
+    .photo-grid.hidden{ display: none; }
+
 </style>
 </head>
 
@@ -431,7 +490,7 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>---<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>...<br>863-840-0362</span>
           </div>
         </div>
       </div>
@@ -575,6 +634,14 @@
               <h2>Photos</h2>
               <p class="panel-sub">Hover a photo to see its description.</p>
               <div id="photoGrid" class="photo-grid"></div>
+              <div id="photoViewer" class="photo-viewer" aria-hidden="true">
+                <div class="photo-viewer-top">
+                  <div class="photo-viewer-title">Photo</div>
+                  <button type="button" id="photoViewerClose" class="photo-viewer-close">Back to thumbnails</button>
+                </div>
+                <img id="photoViewerImg" src="" alt="">
+                <div id="photoViewerCaption" class="photo-viewer-caption"></div>
+              </div>
             </section>
 
             <!-- RULES -->
@@ -1045,6 +1112,8 @@
         img.src = imgUrl;
         img.alt = desc ? desc : "Photo";
         img.loading = "lazy";
+        img.dataset.fullsrc = imgUrl;
+        img.dataset.caption = desc || "";
 
         const tip = document.createElement("div");
         tip.className = "photo-tip";
@@ -1057,8 +1126,18 @@
           a.target = "_blank";
           a.rel = "noopener";
           a.appendChild(img);
+
+          // Clicking the photo opens the large viewer instead of navigating away
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            openPhotoViewer(img.dataset.fullsrc, img.dataset.caption);
+          });
+
           item.appendChild(a);
         } else {
+          img.addEventListener("click", () => {
+            openPhotoViewer(img.dataset.fullsrc, img.dataset.caption);
+          });
           item.appendChild(img);
         }
 
@@ -1066,6 +1145,46 @@
         grid.appendChild(item);
       }
     }
+
+    // Photos: open a full-size viewer below the top bar (inside the Photos tab)
+    function openPhotoViewer(imgSrc, captionText){
+      const grid = document.getElementById("photoGrid");
+      const viewer = document.getElementById("photoViewer");
+      const viewerImg = document.getElementById("photoViewerImg");
+      const viewerCap = document.getElementById("photoViewerCaption");
+
+      if (!grid || !viewer || !viewerImg || !viewerCap) return;
+
+      viewerImg.src = imgSrc;
+      viewerImg.alt = captionText ? captionText : "Photo";
+      viewerCap.textContent = captionText || "";
+
+      grid.classList.add("hidden");
+      viewer.classList.add("active");
+      viewer.setAttribute("aria-hidden", "false");
+
+      // Scroll into view so the large image is immediately visible
+      viewer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function closePhotoViewer(){
+      const grid = document.getElementById("photoGrid");
+      const viewer = document.getElementById("photoViewer");
+      const viewerImg = document.getElementById("photoViewerImg");
+
+      if (!grid || !viewer || !viewerImg) return;
+
+      viewer.classList.remove("active");
+      viewer.setAttribute("aria-hidden", "true");
+      viewerImg.src = "";
+
+      grid.classList.remove("hidden");
+      grid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Wire up the close button once
+    document.getElementById("photoViewerClose")?.addEventListener("click", closePhotoViewer);
+
 
     // =========================
     // 7) Error display
