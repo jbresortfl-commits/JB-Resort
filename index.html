@@ -215,9 +215,6 @@
       transform: translateY(-1px);
       box-shadow: 0 3px 6px rgba(0,0,0,0.18);
     }
-100% { left: 100%; }
-    }
-
     /* Tabs */
     .tabs{
       margin-bottom: var(--gap);
@@ -298,6 +295,7 @@
     }
 
     .photo-item img{
+      cursor: zoom-in;
       width: 160px;
       height: 120px;
       object-fit: cover;
@@ -370,6 +368,29 @@
       color: #555;
     }
 
+
+
+    /* Fullscreen image lightbox */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+    }
+
+    .lightbox img{
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+
+
     /* Phone-friendly */
     @media (max-width: 600px){
       .rules-list{
@@ -400,9 +421,11 @@
 
       .photo-item,
       .photo-item img{
+      cursor: zoom-in;
         width: 150px;
       }
       .photo-item img{
+      cursor: zoom-in;
         height: 112px;
       }
     }
@@ -431,11 +454,11 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>.<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>..<br>863-840-0362</span>
           </div>
         </div>
       </div>
-<div class="topbar-right">
+      <div class="topbar-right">
         <a class="book-btn"
            href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&adults=1&children=0&srid=34460cee-91a9-4e8c-822b-dc8ec7984009"
            target="_blank"
@@ -687,6 +710,12 @@
 
           </div>
         </div>
+
+        <div id="lightbox" class="lightbox" aria-hidden="true">
+          <img id="lightbox-img" alt="">
+        </div>
+
+
       </div>
     </main>
   </div>
@@ -1065,6 +1094,54 @@
         grid.appendChild(item);
       }
     }
+
+    // =========================
+    // 6b) Fullscreen lightbox for Photos
+    // =========================
+    const photoGrid   = document.getElementById("photoGrid");
+    const lightbox     = document.getElementById("lightbox");
+    const lightboxImg  = document.getElementById("lightbox-img");
+
+    function openLightbox(src, alt){
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || "";
+      lightbox.style.display = "flex";
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox(){
+      lightbox.style.display = "none";
+      lightboxImg.src = "";
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    // Click any photo in the Photos grid to open fullscreen.
+    // (Prevents opening the optional Link in a new tab.)
+    if (photoGrid){
+      photoGrid.addEventListener("click", (e) => {
+        const img = e.target.closest("img");
+        if (!img) return;
+        e.preventDefault();
+        openLightbox(img.src, img.alt);
+      });
+    }
+
+    // Close fullscreen on click/tap anywhere
+    lightbox.addEventListener("click", closeLightbox);
+
+    // Close fullscreen on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeLightbox();
+    });
+
+      }
+    });
+
+
+
+
 
     // =========================
     // 7) Error display
