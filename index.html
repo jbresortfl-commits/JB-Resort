@@ -6,47 +6,7 @@
   <title>JB Resort</title>
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js">
-    // =========================
-    // Fullscreen viewer for Photos tab
-    // =========================
-    (function(){
-      const photoGrid   = document.getElementById("photoGrid");
-      const lightbox    = document.getElementById("lightbox");
-      const lightboxImg = document.getElementById("lightbox-img");
-      if (!photoGrid || !lightbox || !lightboxImg) return;
-
-      function openLightbox(src, alt){
-        lightboxImg.src = src;
-        lightboxImg.alt = alt || "";
-        lightbox.style.display = "flex";
-        lightbox.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-      }
-
-      function closeLightbox(){
-        lightbox.style.display = "none";
-        lightboxImg.src = "";
-        lightbox.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-      }
-
-      // Click any photo to open fullscreen.
-      // If photos are wrapped in <a>, prevent navigation.
-      photoGrid.addEventListener("click", (e) => {
-        const img = e.target.closest("img");
-        if (!img) return;
-        e.preventDefault();
-        openLightbox(img.src, img.alt);
-      });
-
-      lightbox.addEventListener("click", closeLightbox);
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeLightbox();
-      });
-    })();
-
-</script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
   <style>
@@ -58,10 +18,12 @@
       --pad: 14px;
       --header-h: 180px;
       --shadow: 0 1px 6px rgba(0,0,0,0.06);
+      --tab-h: 44px;
     }
 
     body{
       margin: 0;
+      scrollbar-gutter: stable;
       font-family: Arial, sans-serif;
       background: #fafafa;
       color: #111;
@@ -82,10 +44,7 @@
     .content{
       width: 100%;
       max-width: var(--page-max);
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: var(--gap);
-      align-items: start;
+      display: block;
     }
 
     .panel{
@@ -158,18 +117,18 @@
       vertical-align: middle;
     }
 
+    /* Top bar */
     .topbar{
       min-height: var(--header-h);
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr; /* left stays as thin as its content */
       align-items: center;
-      justify-content: space-between;
       padding: 0 18px;
       border-bottom: var(--border);
       background: #fff;
       gap: 12px;
     }
-
-    .topbar-left{
+.topbar-left{
       display: flex;
       align-items: center;
       gap: 12px;
@@ -221,11 +180,12 @@
 
     .topbar-right{
       display: flex;
+      justify-content: center; /* centered within the wide right cell */
       align-items: center;
       gap: 10px;
+      min-width: 0;
     }
-
-    .book-btn{
+.book-btn{
       display: inline-flex;
       align-items: center;
       padding: 10px 14px;
@@ -255,73 +215,211 @@
       transform: translateY(-1px);
       box-shadow: 0 3px 6px rgba(0,0,0,0.18);
     }
+100% { left: 100%; }
+    }
 
-    .topbar-mid{
-      flex: 1;
+    /* Tabs */
+    .tabs{
+      margin-bottom: var(--gap);
+      background: #fff;
+      border: var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       overflow: hidden;
-      position: relative;
-      height: 100%;
     }
 
-    .video-runner{
+    .tablist{
       display: flex;
-      align-items: center;
-      gap: 16px;
-      position: absolute;
-      left: -300px;
-      top: 50%;
-      transform: translateY(-50%);
-      animation: run-across 8s linear infinite;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 6px;
+      border-bottom: var(--border);
+      background: #fff;
     }
 
-    .video-runner img,
-    .video-runner video{
-      height: 180px;
-      width: auto;
+    .tab-btn{
+      appearance: none;
+      box-sizing: border-box;
+
+      border: 1px solid rgba(0,0,0,0.18); /* always present to keep width stable */
+      background: #fff;
+
+      padding: 10px 12px;
+      min-height: var(--tab-h);
+
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      color: #333;
+      white-space: nowrap;
+      flex: 0 0 auto; /* stable sizing; phone layout handled in media query */
+    }
+
+    .tab-btn:hover{
+      background: #f7f7f7;
+    }
+
+    .tab-btn:focus-visible{
+      outline: 2px solid rgba(6,69,173,0.45);
+      outline-offset: 2px;
+    }
+
+    .tab-btn[aria-selected="true"]{
+      background: #111;
+      color: #fff;
+      border-color: #111; /* same border width, so no reflow */
+    }
+
+    .tab-panels{
+      padding: var(--pad);
+    }
+
+    .tab-panel{
+      display: none;
+    }
+
+    .tab-panel.active{
       display: block;
     }
 
-    @keyframes run-across{
-      0%   { left: -140px; }
-      100% { left: 100%; }
+
+    /* Photos grid */
+    .photo-grid{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .photo-item{
+      position: relative;
+      width: 160px;
+    }
+
+    .photo-item img{
+      width: 160px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.12);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.10);
+      display: block;
+    }
+
+    .photo-tip{
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%);
+      max-width: 260px;
+      width: max-content;
+      padding: 8px 10px;
+      background: rgba(17,17,17,0.92);
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.35;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.12s ease;
+      z-index: 5;
+      white-space: normal;
+    }
+
+    .photo-tip::after{
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: rgba(17,17,17,0.92);
+    }
+
+    .photo-item:hover .photo-tip{
+      opacity: 1;
+    }
+
+    .section-subtitle{
+      background: #e6f0ff;          /* same pale blue as button */
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111;
+      margin: 0 0 10px 0;
+    }
+
+    .rules-list{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 8px 16px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .rules-list dt{
+      font-weight: 700;
+      color: #111;
+    }
+
+    .rules-list dd{
+      margin: 0;
+      color: #555;
+    }
+
+    /* Phone-friendly */
+    @media (max-width: 600px){
+      .rules-list{
+        grid-template-columns: 1fr;
+      }
+      .rules-list dt{
+        margin-top: 8px;
+      }
     }
 
     /* Phone layout */
     @media (max-width: 1300px){
-      .topbar-mid{ display: none; }
-      .topbar{ padding: 10px 12px; gap: 8px; }
+.topbar{ padding: 10px 12px; gap: 8px; grid-template-columns: auto 1fr; }
       .logo{ width: 60px; height: 60px; }
-      .content{ grid-template-columns: 1fr; }
 
-       /* Make Guest column thinner */
+      /* Make Guest column thinner (still helpful on phone) */
       #guestbook th:nth-child(1),
       #guestbook td:nth-child(1){
-          width: 85%;
+        width: 85%;
         max-width: 75%;
-        white-space: normal;   /* allow wrapping */
+        white-space: normal;
         word-break: break-word;
+      }
+
+      .tab-btn{
+        flex: 1 1 auto;
+      }
+
+      .photo-item,
+      .photo-item img{
+        width: 150px;
+      }
+      .photo-item img{
+        height: 112px;
       }
     }
   
-    /* Fullscreen image lightbox */
-    .lightbox{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      cursor: zoom-out;
+    /* Phone: keep tab wrapping stable (2 columns) */
+    @media (max-width: 700px){
+      .tablist{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+      .tab-btn{
+        width: 100%;
+        white-space: normal; /* allow wrap inside the tab instead of reflowing the bar */
+        text-align: center;
+      }
     }
-    .lightbox img{
-      max-width: 95vw;
-      max-height: 95vh;
-      object-fit: contain;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
-    #photoGrid img{ cursor: zoom-in; }
-
 </style>
 </head>
 
@@ -333,20 +431,10 @@
         <div class="brand-block">
           <div class="brand-name">JB Resort</div>
           <div class="brand-meta">
-            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>.....<br>863-840-0362</span>
+            <span class="meta-item">3423 Cindys LN<br>Sebring FL 33870<br>---<br>863-840-0362</span>
           </div>
         </div>
       </div>
-
-      <div class="topbar-mid">
-        <div class="video-runner">
-          <img class="logo" src="IMG_2793.jpg" alt="Campground">
-          <video src="JamieDance.mp4" autoplay muted loop playsinline></video>
-          <img class="logo" src="IMG_2711.jpg" alt="GuestPullingIn">
-          <img class="logo" src="ArrowRight.png" alt="==>">
-        </div>
-      </div>
-
       <div class="topbar-right">
         <a class="book-btn"
            href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&adults=1&children=0&srid=34460cee-91a9-4e8c-822b-dc8ec7984009"
@@ -359,55 +447,332 @@
 
     <main>
       <div class="content">
-        <section class="panel" id="infoPane">
-          <h2>Info</h2>
-          <div class="muted">
-            Gay-Owned and Operated &mdash; but anybody over 21 is welcome.<br><br>
-            As a Mini-Resort, we only have 3 RV lots and one "cabin" &mdash; a travel trailer.<br><br>
-            We supply the beautiful and spacious grounds including pool, hot-tub, pool table, bar/clubhouse (BYOB).<br><br>
-            10 minutes from downtown Sebring and shopping.<br><br>
-            Our 12.5 acres are fully fenced in. Nice for walking.<br><br>
-            We're dog-friendly. Dogs can run free. But please be responsible for your dog.<br><br>
-            Events: We're too small to schedule events &mdash; by time we listed one, we'd be full. The events are what you make. Get some of your camping friends to meet up here. That's when weekends tend to be the most fun.<br><br>
-          </div>
-        </section>
-
-        <section class="panel" id="guestbookPane">
-          <h2>Guestbook</h2>
-          <p class="panel-sub">Search, sort, and browse our guests book. Please note the "Category" option.</p>
-
-          <div id="filters-row">
-            <div id="category-filter">
-              <label>
-                Category:
-                <select id="categoryFilter">
-                  <option value="">All</option>
-                </select>
-              </label>
-            </div>
+        <div class="tabs panel" id="tabsRoot">
+          <div class="tablist" role="tablist" aria-label="JB Resort tabs">
+            <button class="tab-btn" role="tab" aria-selected="true"  aria-controls="tab-home"         id="btn-home"        data-tab="home">Home</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-guestbook"    id="btn-guestbook"    data-tab="guestbook">Guestbook</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-attractions"  id="btn-attractions"  data-tab="attractions">Attractions</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-shopping"     id="btn-shopping"     data-tab="shopping">Shopping</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-restaurants"  id="btn-restaurants"  data-tab="restaurants">Restaurants and Bars</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-photos"       id="btn-photos"       data-tab="photos">Photos</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-rules"        id="btn-rules"       data-tab="rules">Rules</button>
           </div>
 
-          <table id="guestbook" class="display" style="width:100%">
-            <thead>
-              <tr>
-                <th>Guest</th>
-                <th>Check-in</th>
-                <th>Check-out</th>
-                <th>Site</th>
-                <th>Category</th>
-                <th>Photo</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </section>
+          <div class="tab-panels">
+            <!-- HOME -->
+            <section class="tab-panel active" id="tab-home" role="tabpanel" aria-labelledby="btn-home">
+              <h2>Home</h2>
+              <div class="muted">
+                Gay-Owned and Operated &mdash; but anybody over 21 is welcome.<br><br>
+                As a Mini-Resort, we only have 3 RV lots and one "cabin" &mdash; a travel trailer.<br><br>
+                We supply the beautiful and spacious grounds including pool, hot-tub, pool table, bar/clubhouse (BYOB).<br><br>
+                10 minutes from downtown Sebring and shopping.<br><br>
+                Our 12.5 acres are fully fenced in. Nice for walking.<br><br>
+                We're dog-friendly. Dogs can run free. But please be responsible for your dog.<br><br>
+                Events: We're too small to schedule events &mdash; by time we listed one, we'd be full. The events are what you make. Get some of your camping friends to meet up here. That's when weekends tend to be the most fun.<br><br>Please ask about exclusive gay male, clothing optional dates.
+              </div>
+            </section>
+
+            <!-- GUESTBOOK -->
+            <section class="tab-panel" id="tab-guestbook" role="tabpanel" aria-labelledby="btn-guestbook">
+              <h2>Guestbook</h2>
+              <p class="panel-sub">Search, sort, and browse our guests book. Please note the "Category" option.</p>
+
+              <div id="filters-row">
+                <div id="category-filter">
+                  <label>
+                    Category:
+                    <select id="categoryFilter">
+                      <option value="">All</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <table id="guestbook" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Site</th>
+                    <th>Category</th>
+                    <th>Photo</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </section>
+
+            <!-- ATTRACTIONS -->
+            <section class="tab-panel" id="tab-attractions" role="tabpanel" aria-labelledby="btn-attractions">
+              <h2>Attractions</h2>
+              <!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
+              <table id="attractionsTable" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Website</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </section>
+
+            <!-- SHOPPING -->
+            <section class="tab-panel" id="tab-shopping" role="tabpanel" aria-labelledby="btn-shopping">
+              <h2>Shopping</h2>
+              <!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
+              <table id="shoppingTable" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </section>
+
+            <!-- RESTAURANTS -->
+            <section class="tab-panel" id="tab-restaurants" role="tabpanel" aria-labelledby="btn-restaurants">
+              <h2>Restaurants and Bars</h2>
+
+              <h3 class="section-subtitle">Our Favorite Restaurants and Bars</h3>
+              <table id="favRestaurantsTable" class="display" style="width:100%; margin-bottom: 18px;">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Website</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+
+              <h3 class="section-subtitle">Other Popular Restaurants and Bars</h3>
+              <table id="otherRestaurantsTable" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>Website</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </section>
+
+            <!-- PHOTOS -->
+            <section class="tab-panel" id="tab-photos" role="tabpanel" aria-labelledby="btn-photos">
+              <h2>Photos</h2>
+              <p class="panel-sub">Hover a photo to see its description.</p>
+              <div id="photoGrid" class="photo-grid"></div>
+            </section>
+
+            <!-- RULES -->
+            <section class="tab-panel" id="tab-rules" role="tabpanel" aria-labelledby="btn-rules">
+              <h2>Details & Rules</h2>
+              <div class="muted">
+                <dl class="rules-list">
+
+                  <dt>Wi-Fi</dt>
+                  <dd>
+                    Netgear4E1D5F (password: sharedsecret);<br>
+                    NetgearBolton5 (password: were88*NOT);<br>
+                    JamiesBarn (password: JamiesBarn)
+                  </dd>
+
+                  <dt>Owner's Dogs</dt>
+                  <dd>
+                    Black (female): Diva;<br>
+                    White/Tan (female): Artemis
+                  </dd>
+
+                  <dt>Your Dogs</dt>
+                  <dd>
+                    Dogs may run free on the property.
+                    Please supervise your dog at all times and ensure they do not approach other guests without permission.
+                    Respect other guests' preferences regarding interaction with pets.
+                  </dd>
+
+                  <dt>Trash</dt>
+                  <dd>
+                    Use any of the three trash cans across the main drive, partially hidden by trees.
+                    The county does not recycle.
+                    Please do not leave trash outside your RV unless secured—dogs may get into it.
+                  </dd>
+
+                  <dt>Pool</dt>
+                  <dd>
+                    Unheated; uses saltwater or chlorine depending on water temperature.
+                  </dd>
+
+                  <dt>Hot tub</dt>
+                  <dd>
+                    Please rinse before use.
+                    Close the lid after use when daytime temperatures are below 70°F.
+                  </dd>
+
+                  <dt>Outdoor shower</dt>
+                  <dd>
+                    Located next to the pool.
+                    Water may take up to two minutes to heat and can become very hot.
+                  </dd>
+
+                  <dt>Fence</dt>
+                  <dd>
+                    The entire property is fully fenced.
+                  </dd>
+
+                  <dt>Washer &amp; Dryer</dt>
+                  <dd>
+                    Located in the garage (large silver Quonset hut).
+                    Ask for the access code if locked.
+                  </dd>
+
+                  <dt>Guests</dt>
+                  <dd>
+                    Please ask Bolton or Jamie before inviting guests.
+                    For insurance purposes, all guests must be booked through HipCamp.
+                  </dd>
+
+                  <dt>Septic system</dt>
+                  <dd>
+                    Do not flush wipes, feminine hygiene products, condoms, makeup wipes,
+                    or paper towels. These items will clog the septic pump.
+                  </dd>
+
+                  <dt>Quiet hours</dt>
+                  <dd>
+                    10:30 PM – 8:00 AM (Sun–Thu); 11:00 PM – 8:00 AM (Fri–Sat)
+                  </dd>
+
+                  <dt>Parking</dt>
+                  <dd>
+                    Park only in designated areas.
+                    Do not block walkways, doors, or driveways.
+                  </dd>
+
+                  <dt>Firewood</dt>
+                  <dd>
+                    Use by permission only.
+                    Limited supply available.
+                    Firewood may be purchased at Home Depot or Lowe’s.
+                  </dd>
+
+                  <dt>Fires</dt>
+                  <dd>
+                    Fires must be in a portable off-ground pit or designated pit.
+                    No fires in grass areas or during county fire bans.
+                  </dd>
+
+                  <dt>Personal property</dt>
+                  <dd>
+                    Owners are not responsible for lost or damaged items.
+                    Secure all belongings properly.
+                  </dd>
+
+                </dl>
+
+              </div>
+            </section>
+
+          </div>
+        </div>
+
       </div>
     </main>
   </div>
 
   <script>
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTS02kw1t7eCQm5ZFa-nvfO10qy4tqCscorUBjwCvDp9guyMAFw1GONtXQUZsK6IQG2RJUw2Bfuy3P/pub?gid=0&single=true&output=csv";
+    // =========================
+    // 1) GOOGLE SHEETS CSV URLS
+    // =========================
+    // Replace these with your published CSV URLs from Google Sheets:
+    const GUESTBOOK_CSV_URL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTS02kw1t7eCQm5ZFa-nvfO10qy4tqCscorUBjwCvDp9guyMAFw1GONtXQUZsK6IQG2RJUw2Bfuy3P/pub?gid=0&single=true&output=csv";
+    const ATTRACTIONS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTAApH23Ok726BA7XBqmxTn04qoJCiVWq60FFLNnyk1TDX-xaX2VoO7HU-gufFsnfm_8AXt0XKj1Ng9/pub?output=csv";
+    const SHOPPING_CSV_URL    = "https://docs.google.com/spreadsheets/d/e/2PACX-1vThwtZc8tlbqCEVTp4PYVrNX_2khq2y3LCd-eUkdTAq_c7GzewSo7-FDppM_jFomGXmIO55fCLlpVlr/pub?output=csv";
+    const FAV_REST_CSV_URL    = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTn-HTP6GPliB3QLmUmpLi_7Ymm5RxlvrnTdKb5BJWiC0PwbapVhfeS49lXdAkIOWo6-aLSnSW0VblD/pub?output=csv";
+    const OTHER_REST_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQf0XdMJqOBxr7oEYZzaZVbU3zqAkiDHwDb3cR2tWDk0IMiU0uhNq2epY1mmbLgQP9TwCpcnL3e18t3/pub?output=csv";
+    const PHOTOS_CSV_URL      = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR3OXVxGJPKaKXXumLRvXZM4V1-dd8b-ZUqNE8Thtjlw6PPf_ryc6OCYPs0mB_Gv8xHhp0NSDfPATWo/pub?gid=0&single=true&output=csv";
 
+    // =========================
+    // 2) TAB SWITCHING
+    // =========================
+    const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
+    const tabPanels  = Array.from(document.querySelectorAll(".tab-panel"));
+
+    function setActiveTab(tabName){
+      tabButtons.forEach(btn => {
+        const on = btn.dataset.tab === tabName;
+        btn.setAttribute("aria-selected", on ? "true" : "false");
+      });
+
+      tabPanels.forEach(p => {
+        p.classList.toggle("active", p.id === "tab-" + tabName);
+      });
+
+      // Lazy-init DataTables when a tab is opened (prevents width bugs)
+      if (tabName === "guestbook" && !window.__guestbookInitialized) {
+        window.__guestbookInitialized = true;
+        loadGuestbook();
+      }
+
+      if (tabName === "attractions" && !window.__attractionsInitialized) {
+        window.__attractionsInitialized = true;
+        loadSimpleTable(ATTRACTIONS_CSV_URL, "#attractionsTable", [
+          "name", "description", "address", "phone number", "website"
+        ], { linkColumns: ["website"] });
+      }
+
+      if (tabName === "shopping" && !window.__shoppingInitialized) {
+        window.__shoppingInitialized = true;
+        loadSimpleTable(SHOPPING_CSV_URL, "#shoppingTable", [
+          "name", "address"
+        ]);
+      }
+
+      if (tabName === "restaurants" && !window.__restaurantsInitialized) {
+        window.__restaurantsInitialized = true;
+        loadSimpleTable(FAV_REST_CSV_URL, "#favRestaurantsTable", [
+          "name", "description", "address", "phone number", "website"
+        ], { linkColumns: ["website"] });
+
+        loadSimpleTable(OTHER_REST_CSV_URL, "#otherRestaurantsTable", [
+          "name", "description", "address", "phone number", "website"
+        ], { linkColumns: ["website"] });
+      }
+
+      if (tabName === "photos" && !window.__photosInitialized) {
+        window.__photosInitialized = true;
+        loadPhotos();
+      }
+
+      // save
+      try { localStorage.setItem("jb_active_tab", tabName); } catch(e) {}
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+    });
+
+    // Restore last tab (optional)
+    try {
+      const last = localStorage.getItem("jb_active_tab");
+      if (last) setActiveTab(last);
+    } catch(e) {}
+
+    // =========================
+    // 3) CSV helpers
+    // =========================
     function parseCSV(text) {
       const rows = [];
       let row = [];
@@ -434,20 +799,6 @@
       return rows;
     }
 
-    function toEmbeddableImageUrl(url) {
-      const u = String(url || "").trim();
-
-      let m = u.match(/drive\.google\.com\/file\/d\/([^\/]+)/i);
-      if (m && m[1]) return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
-
-      m = u.match(/[?&]id=([^&]+)/i);
-      if (m && m[1] && /drive\.google\.com\/uc/i.test(u)) {
-        return `https://lh3.googleusercontent.com/d/${m[1]}=w400`;
-      }
-
-      return u;
-    }
-
     function escapeHtml(str) {
       return String(str)
         .replaceAll("&", "&amp;")
@@ -461,13 +812,37 @@
       return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     }
 
-    async function loadGuestbook() {
-      const res = await fetch(CSV_URL, { cache: "no-store" });
+    function toEmbeddableImageUrl(url) {
+      const u = String(url || "").trim();
+
+      let m = u.match(/drive\.google\.com\/file\/d\/([^\/]+)/i);
+      if (m && m[1]) return `https://lh3.googleusercontent.com/d/${m[1]}=w800`;
+
+      m = u.match(/[?&]id=([^&]+)/i);
+      if (m && m[1] && /drive\.google\.com\/uc/i.test(u)) {
+        return `https://lh3.googleusercontent.com/d/${m[1]}=w800`;
+      }
+
+      return u;
+    }
+
+    async function fetchCsvRows(csvUrl){
+      if (!csvUrl) return null;
+      const res = await fetch(csvUrl, { cache: "no-store" });
       if (!res.ok) throw new Error("Could not load CSV. Check your published link.");
       const text = await res.text();
       const data = parseCSV(text);
-
       const [headers, ...rows] = data;
+      return { headers, rows };
+    }
+
+    // =========================
+    // 4) Guestbook (existing)
+    // =========================
+    async function loadGuestbook() {
+      const payload = await fetchCsvRows(GUESTBOOK_CSV_URL);
+      if (!payload) return;
+      const { headers, rows } = payload;
 
       const colIndex = (name) =>
         headers.findIndex(h => (h || "").trim().toLowerCase() === name);
@@ -480,7 +855,7 @@
       const idxPhoto = colIndex("photo");
 
       if ([idxName, idxIn, idxOut, idxSite, idxCategory].some(i => i < 0)) {
-        throw new Error("CSV headers must include: Guest, Check-in, Check-out, Site, Category");
+        throw new Error("Guestbook CSV headers must include: Guest, Check-in, Check-out, Site, Category");
       }
 
       const tbody = document.querySelector("#guestbook tbody");
@@ -555,29 +930,152 @@
         }
       });
 
-      // Phone-only hide/show for Check-out column (index 2)
+      // Phone-only hide/show for Check-out, Site, Category columns (indexes 2,3,4)
       function updateCheckoutVisibility(){
         const isPhone = window.matchMedia("(max-width: 700px)").matches;
-        table.column(2).visible(!isPhone);
-        table.column(3).visible(!isPhone);
-        table.column(4).visible(!isPhone);
+        table.column(2).visible(!isPhone); // Check-out
+        table.column(3).visible(!isPhone); // Site
+        table.column(4).visible(!isPhone); // Category
       }
 
       updateCheckoutVisibility();
       window.addEventListener("resize", updateCheckoutVisibility);
     }
 
-    loadGuestbook().catch(err => {
+    // =========================
+    // 5) Generic tables
+    // =========================
+    async function loadSimpleTable(csvUrl, tableSelector, expectedColumnsLower, opts){
+      opts = opts || {};
+      const payload = await fetchCsvRows(csvUrl);
+      if (!payload){
+        // Leave empty if URL not set
+        return;
+      }
+
+      const { headers, rows } = payload;
+      const headersLower = headers.map(h => String(h || "").trim().toLowerCase());
+
+      function idx(colLower){
+        return headersLower.findIndex(h => h === colLower);
+      }
+
+      const indices = expectedColumnsLower.map(c => idx(c));
+      if (indices.some(i => i < 0)){
+        throw new Error(`CSV for ${tableSelector} is missing one or more headers. Expected: ${expectedColumnsLower.join(", ")}`);
+      }
+
+      const tbody = document.querySelector(tableSelector + " tbody");
+      tbody.innerHTML = "";
+
+      for (const r of rows){
+        if (!r || r.every(c => !String(c || "").trim())) continue;
+
+        const tr = document.createElement("tr");
+        const tds = expectedColumnsLower.map((colLower, j) => {
+          const raw = (r[indices[j]] || "").trim();
+          const safe = escapeHtml(raw);
+
+          // Turn "Website" into clickable link if present
+          if (opts.linkColumns && opts.linkColumns.includes(colLower) && raw){
+            const href = raw.startsWith("http") ? raw : ("https://" + raw);
+            return `<td><a href="${escapeHtml(href)}" target="_blank" rel="noopener">${safe}</a></td>`;
+          }
+
+          return `<td>${safe}</td>`;
+        });
+
+        tr.innerHTML = tds.join("");
+        tbody.appendChild(tr);
+      }
+
+      if ($.fn.dataTable.isDataTable(tableSelector)) {
+        $(tableSelector).DataTable().destroy();
+      }
+
+      $(tableSelector).DataTable({
+        dom: 'ftrip',
+        pageLength: 25,
+        order: [],
+        autoWidth: false
+      });
+    }
+
+    // =========================
+    // 6) Photos (grid w/ hover)
+    // =========================
+    async function loadPhotos(){
+      const grid = document.getElementById("photoGrid");
+      grid.innerHTML = "";
+
+      const payload = await fetchCsvRows(PHOTOS_CSV_URL);
+      if (!payload){
+        grid.innerHTML = '<div class="muted">Photos CSV URL is not set yet. Publish a Google Sheet and paste the CSV link into <b>PHOTOS_CSV_URL</b>.</div>';
+        return;
+      }
+
+      const { headers, rows } = payload;
+      const headersLower = headers.map(h => String(h || "").trim().toLowerCase());
+
+      // Expected headers: Photo, Description (optional: Link)
+      const idxPhoto = headersLower.findIndex(h => h === "photo" || h === "image" || h === "image url");
+      const idxDesc  = headersLower.findIndex(h => h === "description" || h === "caption");
+      const idxLink  = headersLower.findIndex(h => h === "link" || h === "website" || h === "url");
+
+      if (idxPhoto < 0 || idxDesc < 0){
+        throw new Error("Photos CSV headers must include: Photo (or Image/Image URL) and Description (or Caption).");
+      }
+
+      for (const r of rows){
+        if (!r || r.every(c => !String(c || "").trim())) continue;
+
+        const rawPhoto = (r[idxPhoto] || "").trim();
+        const desc     = (r[idxDesc]  || "").trim();
+        const rawLink  = (idxLink >= 0) ? (r[idxLink] || "").trim() : "";
+
+        if (!rawPhoto) continue;
+
+        const imgUrl = toEmbeddableImageUrl(rawPhoto);
+        const safeDesc = escapeHtml(desc || "");
+
+        const item = document.createElement("div");
+        item.className = "photo-item";
+
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = desc ? desc : "Photo";
+        img.loading = "lazy";
+
+        const tip = document.createElement("div");
+        tip.className = "photo-tip";
+        tip.innerHTML = safeDesc || "&nbsp;";
+
+        if (rawLink){
+          const href = rawLink.startsWith("http") ? rawLink : ("https://" + rawLink);
+          const a = document.createElement("a");
+          a.href = href;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.appendChild(img);
+          item.appendChild(a);
+        } else {
+          item.appendChild(img);
+        }
+
+        item.appendChild(tip);
+        grid.appendChild(item);
+      }
+    }
+
+    // =========================
+    // 7) Error display
+    // =========================
+    window.addEventListener("unhandledrejection", (ev) => {
+      const msg = ev?.reason?.message ? ev.reason.message : String(ev.reason || "Unknown error");
       document.body.insertAdjacentHTML("beforeend",
-        `<p style="color:#b00020;padding:12px;"><b>Error:</b> ${escapeHtml(err.message)}</p>`
+        `<p style="color:#b00020;padding:12px;"><b>Error:</b> ${escapeHtml(msg)}</p>`
       );
     });
   </script>
-
-  <!-- Fullscreen photo viewer -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <img id="lightbox-img" alt="">
-  </div>
-
 </body>
 </html>
