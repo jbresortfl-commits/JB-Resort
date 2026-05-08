@@ -538,19 +538,11 @@
       }
     }
 
-    /* Outer list spacing */
-    .main-list > li {
-      margin-bottom: 16px;
+    ul.main-list > li {
+      margin-bottom: 1em;
     }
 
-    /* Nested list bullet style */
-    .sub-list {
-      list-style-type: circle;
-      margin-top: 6px;
-    }
-
-    /* Remove extra spacing inside nested list */
-    .sub-list li {
+    ul.main-list > li > ul > li {
       margin-bottom: 0;
     }
 
@@ -660,7 +652,7 @@
             <section class="tab-panel" id="tab-events" role="tabpanel" aria-labelledby="btn-events">
               <h2>Events: 2026</h2>
               <div class="muted">
-                <ul>
+                <ul class="main-list">
                   <li>May: Fri 22 Memorial Day Weekend: </li>
                    <ul>
                     <li> Cookout (Hamburgers & Hot Dogs) Saturday, food served at 3:00</li>
