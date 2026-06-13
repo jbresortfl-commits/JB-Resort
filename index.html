@@ -566,7 +566,7 @@
                 3423 Cindys Ln<br>
                 Sebring, FL 33870
               </a>
-              <br>.....<br>
+              <br>___<br>
               863-840-0362
             </span>
           </div>
@@ -1162,13 +1162,13 @@
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${escapeHtml(r[idxLocation] || "")}</td>
           <td>${escapeHtml(r[idxName] || "")}</td>
           <td>${escapeHtml(r[idxIn] || "")}</td>
           <td>${escapeHtml(r[idxOut] || "")}</td>
           <td>${escapeHtml(r[idxSite] || "")}</td>
           <td>${escapeHtml(r[idxCategory] || "")}</td>
           <td>${photoCell}</td>
+          <td>${escapeHtml(r[idxLocation] || "")}</td>
         `;
         tbody.appendChild(tr);
       }
