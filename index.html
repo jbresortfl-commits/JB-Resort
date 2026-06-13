@@ -566,7 +566,7 @@
                 3423 Cindys Ln<br>
                 Sebring, FL 33870
               </a>
-              <br>. . .<br>
+              <br>.....<br>
               863-840-0362
             </span>
           </div>
@@ -1162,18 +1162,18 @@
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
+          <td>${escapeHtml(r[idxLocation] || "")}</td>
           <td>${escapeHtml(r[idxName] || "")}</td>
           <td>${escapeHtml(r[idxIn] || "")}</td>
           <td>${escapeHtml(r[idxOut] || "")}</td>
           <td>${escapeHtml(r[idxSite] || "")}</td>
-          <td>${escapeHtml(r[idxLocation] || "")}</td>
           <td>${escapeHtml(r[idxCategory] || "")}</td>
           <td>${photoCell}</td>
         `;
         tbody.appendChild(tr);
       }
 
-      const categoryColIndex = 5;
+      const categoryColIndex = 4;
 
       if ($.fn.dataTable.isDataTable('#guestbook')) {
         $('#guestbook').DataTable().destroy();
@@ -1184,7 +1184,7 @@
         pageLength: 25,
         order: [[1, 'desc']],
         columnDefs: [
-          { targets: [6], orderable: false, searchable: false },
+          { targets: [5], orderable: false, searchable: false },
           { targets: [1,2], type: 'date' }
         ],
         initComplete: function () {
@@ -1215,13 +1215,12 @@
         }
       });
 
-      // Phone-only hide/show for Check-out, Site, Category columns (indexes 2,3,4)
+      // Phone-only hide/show for Check-out, Site, Category columns
       function updateCheckoutVisibility(){
         const isPhone = window.matchMedia("(max-width: 700px)").matches;
         table.column(2).visible(!isPhone); // Check-out
         table.column(3).visible(!isPhone); // Site
-        table.column(4).visible(!isPhone); // Location
-        table.column(5).visible(!isPhone); // Category
+        table.column(4).visible(!isPhone); // Category
       }
 
       updateCheckoutVisibility();
