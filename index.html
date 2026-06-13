@@ -640,6 +640,7 @@
                     <th>Check-in</th>
                     <th>Check-out</th>
                     <th>Site</th>
+                    <th>Location</th>
                     <th>Category</th>
                     <th>Photo</th>
                   </tr>
@@ -1133,11 +1134,12 @@
       const idxIn   = colIndex("check-in");
       const idxOut  = colIndex("check-out");
       const idxSite = colIndex("site");
+      const idxLocation = colIndex("location");
       const idxCategory = colIndex("category");
       const idxPhoto = colIndex("photo");
 
-      if ([idxName, idxIn, idxOut, idxSite, idxCategory].some(i => i < 0)) {
-        throw new Error("Guestbook CSV headers must include: Guest, Check-in, Check-out, Site, Category");
+      if ([idxName, idxIn, idxOut, idxSite, idxLocation, idxCategory].some(i => i < 0)) {
+        throw new Error("Guestbook CSV headers must include: Guest, Check-in, Check-out, Site, Location, Category");
       }
 
       const tbody = document.querySelector("#guestbook tbody");
@@ -1164,13 +1166,14 @@
           <td>${escapeHtml(r[idxIn] || "")}</td>
           <td>${escapeHtml(r[idxOut] || "")}</td>
           <td>${escapeHtml(r[idxSite] || "")}</td>
+          <td>${escapeHtml(r[idxLocation] || "")}</td>
           <td>${escapeHtml(r[idxCategory] || "")}</td>
           <td>${photoCell}</td>
         `;
         tbody.appendChild(tr);
       }
 
-      const categoryColIndex = 4;
+      const categoryColIndex = 5;
 
       if ($.fn.dataTable.isDataTable('#guestbook')) {
         $('#guestbook').DataTable().destroy();
@@ -1181,7 +1184,7 @@
         pageLength: 25,
         order: [[1, 'desc']],
         columnDefs: [
-          { targets: [5], orderable: false, searchable: false },
+          { targets: [6], orderable: false, searchable: false },
           { targets: [1,2], type: 'date' }
         ],
         initComplete: function () {
@@ -1217,7 +1220,8 @@
         const isPhone = window.matchMedia("(max-width: 700px)").matches;
         table.column(2).visible(!isPhone); // Check-out
         table.column(3).visible(!isPhone); // Site
-        table.column(4).visible(!isPhone); // Category
+        table.column(4).visible(!isPhone); // Location
+        table.column(5).visible(!isPhone); // Category
       }
 
       updateCheckoutVisibility();
