@@ -566,7 +566,7 @@
                 3423 Cindys Ln<br>
                 Sebring, FL 33870
               </a>
-              <br>___<br>
+              <br>- - -<br>
               863-840-0362
             </span>
           </div>
@@ -1215,12 +1215,13 @@
         }
       });
 
-      // Phone-only hide/show for Check-out, Site, Category columns
+      // Phone-only hide/show for Check-out, Site, Category, Location columns
       function updateCheckoutVisibility(){
         const isPhone = window.matchMedia("(max-width: 700px)").matches;
         table.column(2).visible(!isPhone); // Check-out
         table.column(3).visible(!isPhone); // Site
         table.column(4).visible(!isPhone); // Category
+        table.column(6).visible(!isPhone); // Location
       }
 
       updateCheckoutVisibility();
