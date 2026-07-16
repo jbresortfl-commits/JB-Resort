@@ -1,15 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>JB Resort</title>
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>JB Resort</title>
+<link href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" rel="stylesheet"/>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<style>
     :root{
       --page-max: 1200px;
       --gap: 16px;
@@ -549,439 +548,380 @@
 
 </style>
 </head>
-
 <body>
-  <div class="page">
-    <header class="topbar">
-      <div class="topbar-left">
-        <img class="logo" src="Logo.jpg" alt="JB Resort logo">
-        <div class="brand-block">
-          <div class="brand-name">JB Resort</div>
-          <div class="brand-meta">
-            <span class="meta-item">
-              <a href="https://www.google.com/maps/search/?api=1&query=3423+Cindys+Ln+Sebring+FL+33870"
-                target="_blank"
-                rel="noopener"
-                style="color: inherit; text-decoration: underline;">
-                3423 Cindys Ln<br>
+<div class="page">
+<header class="topbar">
+<div class="topbar-left">
+<img alt="JB Resort logo" class="logo" src="Logo.jpg"/>
+<div class="brand-block">
+<div class="brand-name">JB Resort</div>
+<div class="brand-meta">
+<span class="meta-item">
+<a href="https://www.google.com/maps/search/?api=1&amp;query=3423+Cindys+Ln+Sebring+FL+33870" rel="noopener" style="color: inherit; text-decoration: underline;" target="_blank">
+                3423 Cindys Ln<br/>
                 Sebring, FL 33870
               </a>
-              <br>- - - - -<br>
+<br/>- - - - -<br/>
               863-840-0362
             </span>
-          </div>
-        </div>
-      </div>
-      <div class="topbar-right">
-        <a class="book-btn"
-           href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&adults=1&children=0&srid=34460cee-91a9-4e8c-822b-dc8ec7984009"
-           target="_blank"
-           rel="noopener">
+</div>
+</div>
+</div>
+<div class="topbar-right">
+<a class="book-btn" href="https://www.hipcamp.com/en-US/land/florida-jb-resort-6p0h0nn5?searchSource=homepage-autocomplete&amp;adults=1&amp;children=0&amp;srid=34460cee-91a9-4e8c-822b-dc8ec7984009" rel="noopener" target="_blank">
           Book on HipCamp
         </a>
-      </div>
-    </header>
-
-    <main>
-      <div class="content">
-        <div class="tabs panel" id="tabsRoot">
-          <div class="tablist" role="tablist" aria-label="JB Resort tabs">
-            <button class="tab-btn" role="tab" aria-selected="true"  aria-controls="tab-home"         id="btn-home"        data-tab="home">Home</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-map"          id="btn-map"         data-tab="map">Map</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-events"       id="btn-events"      data-tab="events">Events</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-rules"        id="btn-rules"       data-tab="rules">Details & Rules</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-available"    id="btn-available"   data-tab="available">Available Dates</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-directions"   id="btn-directions"  data-tab="directions">Directions</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-guestbook"    id="btn-guestbook"   data-tab="guestbook">Guestbook</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-reviews"      id="btn-reviews"     data-tab="reviews">Reviews</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-photos"       id="btn-photos"      data-tab="photos">Photos</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-attractions"  id="btn-attractions" data-tab="attractions">Attractions</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-shopping"     id="btn-shopping"    data-tab="shopping">Shopping</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-restaurants"  id="btn-restaurants" data-tab="restaurants">Restaurants and Bars</button>
-          </div>
-
-          <div class="tab-panels">
-            <!-- HOME -->
-            <section class="tab-panel active" id="tab-home" role="tabpanel" aria-labelledby="btn-home">
-              <h2>Home</h2>
-              <div class="muted">
-                Gay-Owned and Operated &mdash; but anybody over 21 is welcome.<br><br>
-                As a Mini-Resort, we only have 4 RV lots and one "cabin" &mdash; a travel trailer.<br><br>
-                We supply the beautiful and spacious grounds including pool, hot-tub, pool table, bar/clubhouse (BYOB).<br><br>
-                10 minutes from downtown Sebring and shopping.<br><br>
-                Our 12.5 acres are fully fenced in. Nice for walking.<br><br>
-                We're dog-friendly. Dogs can run free. But please be responsible for your dog.<br><br>
-                Get some of your camping friends to meet up here. Fill at least 3 spots, we'll close the others. That's when weekends tend to be the most fun.<br><br>
-                Please ask about exclusive gay male, clothing optional dates.<br><br>
+</div>
+</header>
+<main>
+<div class="content">
+<div class="tabs panel" id="tabsRoot">
+<div aria-label="JB Resort tabs" class="tablist" role="tablist">
+<button aria-controls="tab-home" aria-selected="true" class="tab-btn" data-tab="home" id="btn-home" role="tab">Home</button>
+<button aria-controls="tab-map" aria-selected="false" class="tab-btn" data-tab="map" id="btn-map" role="tab">Map</button>
+<button aria-controls="tab-events" aria-selected="false" class="tab-btn" data-tab="events" id="btn-events" role="tab">Events</button>
+<button aria-controls="tab-rules" aria-selected="false" class="tab-btn" data-tab="rules" id="btn-rules" role="tab">Details &amp; Rules</button>
+<button aria-controls="tab-available" aria-selected="false" class="tab-btn" data-tab="available" id="btn-available" role="tab">Available Dates</button>
+<button aria-controls="tab-directions" aria-selected="false" class="tab-btn" data-tab="directions" id="btn-directions" role="tab">Directions</button>
+<button aria-controls="tab-guestbook" aria-selected="false" class="tab-btn" data-tab="guestbook" id="btn-guestbook" role="tab">Guestbook</button>
+<button aria-controls="tab-reviews" aria-selected="false" class="tab-btn" data-tab="reviews" id="btn-reviews" role="tab">Reviews</button>
+<button aria-controls="tab-photos" aria-selected="false" class="tab-btn" data-tab="photos" id="btn-photos" role="tab">Photos</button>
+<button aria-controls="tab-attractions" aria-selected="false" class="tab-btn" data-tab="attractions" id="btn-attractions" role="tab">Attractions</button>
+<button aria-controls="tab-shopping" aria-selected="false" class="tab-btn" data-tab="shopping" id="btn-shopping" role="tab">Shopping</button>
+<button aria-controls="tab-restaurants" aria-selected="false" class="tab-btn" data-tab="restaurants" id="btn-restaurants" role="tab">Restaurants and Bars</button>
+</div>
+<div class="tab-panels">
+<!-- HOME -->
+<section aria-labelledby="btn-home" class="tab-panel active" id="tab-home" role="tabpanel">
+<h2>Home</h2>
+<div class="muted">
+                Gay-Owned and Operated — but anybody over 21 is welcome.<br/><br/>
+                As a Mini-Resort, we only have 4 RV lots and one "cabin" — a travel trailer.<br/><br/>
+                We supply the beautiful and spacious grounds including pool, hot-tub, pool table, bar/clubhouse (BYOB).<br/><br/>
+                10 minutes from downtown Sebring and shopping.<br/><br/>
+                Our 12.5 acres are fully fenced in. Nice for walking.<br/><br/>
+                We're dog-friendly. Dogs can run free. But please be responsible for your dog.<br/><br/>
+                Get some of your camping friends to meet up here. Fill at least 3 spots, we'll close the others. That's when weekends tend to be the most fun.<br/><br/>
+                Please ask about exclusive gay male, clothing optional dates.<br/><br/>
                 Generally, a social every Saturday night (BYOB) with campground guests and local friends but feel free to be hermit.
 
               </div>
-            </section>
-
-            <!-- GUESTBOOK -->
-            <section class="tab-panel" id="tab-guestbook" role="tabpanel" aria-labelledby="btn-guestbook">
-              <h2>Guestbook</h2>
-              <p class="panel-sub">Search, sort, and browse our guests book. Please note the "Category" option.</p>
-
-              <div id="filters-row">
-                <div id="category-filter">
-                  <label>
+</section>
+<!-- GUESTBOOK -->
+<section aria-labelledby="btn-guestbook" class="tab-panel" id="tab-guestbook" role="tabpanel">
+<h2>Guestbook</h2>
+<p class="panel-sub">Search, sort, and browse our guests book. Please note the "Category" option.</p>
+<div id="filters-row">
+<div id="category-filter">
+<label>
                     Category:
                     <select id="categoryFilter">
-                      <option value="">All</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-
-              <table id="guestbook" class="display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th>Guest</th>
-                    <th>Check-in</th>
-                    <th>Check-out</th>
-                    <th>Site</th>
-                    <th>Category</th>
-                    <th>Photo</th>
-                    <th>Location</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </section>
-
-            <!-- EVENTS -->
-            <section class="tab-panel" id="tab-events" role="tabpanel" aria-labelledby="btn-events">
-              <h2>Events: 2026</h2>
-              <div class="muted">
-                <ul class="main-list">
-                  <li>Aug: Fri 28 - Sun 30: Gay Men Only (GMO) weekend; clothing optional</li>
-                  <li>Sep: Fri  4 - Mon  7: Labor Day Weekend:</li>
-                  <ul>
-                    <li> Pool Party & Cookout. Saturday, food served at 3:00</li>
-                  </ul>
-                </ul>
-              </div>
-            </section>
-
-            <!-- ATTRACTIONS -->
-            <section class="tab-panel" id="tab-attractions" role="tabpanel" aria-labelledby="btn-attractions">
-              <h2>Attractions</h2>
-              <!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
-              <table id="attractionsTable" class="display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Website</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </section>
-
-            <!-- SHOPPING -->
-            <section class="tab-panel" id="tab-shopping" role="tabpanel" aria-labelledby="btn-shopping">
-              <h2>Shopping</h2>
-              <!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
-              <table id="shoppingTable" class="display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </section>
-
-            <!-- RESTAURANTS -->
-            <section class="tab-panel" id="tab-restaurants" role="tabpanel" aria-labelledby="btn-restaurants">
-              <h2>Restaurants and Bars</h2>
-
-              <h3 class="section-subtitle">Our Favorite Restaurants and Bars</h3>
-              <table id="favRestaurantsTable" class="display" style="width:100%; margin-bottom: 18px;">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Website</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-
-              <h3 class="section-subtitle">Other Popular Restaurants and Bars</h3>
-              <table id="otherRestaurantsTable" class="display" style="width:100%">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Address</th>
-                    <th>Phone Number</th>
-                    <th>Website</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </section>
-
-            <!-- REVIEWS -->
-            <section class="tab-panel" id="tab-reviews" role="tabpanel" aria-labelledby="btn-reviews">
-              <h2>Reviews</h2>
-              <div class="muted">
-                "Jamie and Bolton are extremely proud of our 100% Thumbs Up from Hipcamp from 63 reviews, and our 5.0 our of 5.0 Rating with AirBnB. <a href="https://www.google.com/maps/search/?api=1&query=3423+Cindys+Ln+Sebring+FL+33870"
-                     target="_blank"
-                     rel="noopener">HipCamp Reviews</a>
-              </div>
-            </section>
-
-            <!-- PHOTOS -->
-            <section class="tab-panel" id="tab-photos" role="tabpanel" aria-labelledby="btn-photos">
-              <h2>Photos</h2>
-              <p class="panel-sub">Hover a photo to see its description.</p>
-              <div id="photoGrid" class="photo-grid"></div>
-              <div id="photoViewer" class="photo-viewer" aria-hidden="true">
-                <div class="photo-viewer-top">
-                  <div class="photo-viewer-title">Photo</div>
-                  <button type="button" id="photoViewerClose" class="photo-viewer-close">Back to thumbnails</button>
-                </div>
-                <img id="photoViewerImg" src="" alt="">
-                <div id="photoViewerCaption" class="photo-viewer-caption"></div>
-              </div>
-            </section>
-
-
-            <!-- MAP -->
-            <section class="tab-panel" id="tab-map" role="tabpanel" aria-labelledby="btn-map">
-              <h2>Map</h2>
-
-              <div class="map-block">
-                <div class="map-top">
-                  <div class="map-img">
-                    <img src="SiteMap.png" alt="JB Resort site map">
-                  </div>
-
-                  <div class="map-legend">
-                    <h3 class="section-subtitle" style="margin-top:0;">Legend</h3>
-                    <ul class="legend-list">
-                      <li><b>1:</b> Front Cement Pad</li>
-                      <li><b>2:</b> RV Port</li>
-                      <li><b>3:</b> Behind Barn</li>
-                      <li><b>4:</b> Grove</li>
-                      <li><b>5:</b> Cabin: Stationary RV, Not in Photo.</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div class="map-bottom">
-                  <img src="Property.png" alt="JB Resort property overview">
-                  <img src="CityView.png" alt="JB Resort City View">
-                </div>
-              </div>
-            </section>
-            
-            <!-- AVAILABLE DATES -->
-            <section class="tab-panel" id="tab-available" role="tabpanel" aria-labelledby="btn-available">
-              <h2>Available Dates</h2>
-              <div class="muted">
-               <p>
+<option value="">All</option>
+</select>
+</label>
+</div>
+</div>
+<table class="display" id="guestbook" style="width:100%">
+<thead>
+<tr>
+<th>Guest</th>
+<th>Check-in</th>
+<th>Check-out</th>
+<th>Site</th>
+<th>Category</th>
+<th>Photo</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+<!-- EVENTS -->
+<section aria-labelledby="btn-events" class="tab-panel" id="tab-events" role="tabpanel">
+<h2>Events: 2026</h2>
+<div class="muted">
+<ul class="main-list">
+<li>Aug: Fri 28 - Sun 30: Gay Men Only (GMO) weekend; clothing optional</li>
+<li>Sep: Fri  4 - Mon  7: Labor Day Weekend:</li>
+<ul>
+<li> Pool Party &amp; Cookout. Saturday, food served at 3:00</li>
+</ul>
+</ul>
+</div>
+</section>
+<!-- ATTRACTIONS -->
+<section aria-labelledby="btn-attractions" class="tab-panel" id="tab-attractions" role="tabpanel">
+<h2>Attractions</h2>
+<!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
+<table class="display" id="attractionsTable" style="width:100%">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Address</th>
+<th>Phone Number</th>
+<th>Website</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+<!-- SHOPPING -->
+<section aria-labelledby="btn-shopping" class="tab-panel" id="tab-shopping" role="tabpanel">
+<h2>Shopping</h2>
+<!--<p class="panel-sub">This table is loaded from a published Google Sheet (CSV).</p>-->
+<table class="display" id="shoppingTable" style="width:100%">
+<thead>
+<tr>
+<th>Name</th>
+<th>Address</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+<!-- RESTAURANTS -->
+<section aria-labelledby="btn-restaurants" class="tab-panel" id="tab-restaurants" role="tabpanel">
+<h2>Restaurants and Bars</h2>
+<h3 class="section-subtitle">Our Favorite Restaurants and Bars</h3>
+<table class="display" id="favRestaurantsTable" style="width:100%; margin-bottom: 18px;">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Address</th>
+<th>Phone Number</th>
+<th>Website</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 class="section-subtitle">Other Popular Restaurants and Bars</h3>
+<table class="display" id="otherRestaurantsTable" style="width:100%">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Address</th>
+<th>Phone Number</th>
+<th>Website</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</section>
+<!-- REVIEWS -->
+<section aria-labelledby="btn-reviews" class="tab-panel" id="tab-reviews" role="tabpanel">
+<h2>Reviews</h2>
+<div class="muted">
+                "Jamie and Bolton are extremely proud of our 100% Thumbs Up from Hipcamp from 63 reviews, and our 5.0 our of 5.0 Rating with AirBnB. <a href="https://www.google.com/maps/search/?api=1&amp;query=3423+Cindys+Ln+Sebring+FL+33870" rel="noopener" target="_blank">HipCamp Reviews</a>
+<div style="display:flex;flex-direction:column;gap:20px;margin-top:20px;"><img alt="Review 1" src="Review00001.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 2" src="Review00002.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 3" src="Review00003.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 4" src="Review00004.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 5" src="Review00005.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 6" src="Review00006.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 7" src="Review00007.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 8" src="Review00008.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 9" src="Review00009.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/><img alt="Review 10" src="Review00010.jpg" style="width:100%;max-width:900px;border:1px solid #ccc;border-radius:8px;display:block;margin:auto;"/></div></div>
+</section>
+<!-- PHOTOS -->
+<section aria-labelledby="btn-photos" class="tab-panel" id="tab-photos" role="tabpanel">
+<h2>Photos</h2>
+<p class="panel-sub">Hover a photo to see its description.</p>
+<div class="photo-grid" id="photoGrid"></div>
+<div aria-hidden="true" class="photo-viewer" id="photoViewer">
+<div class="photo-viewer-top">
+<div class="photo-viewer-title">Photo</div>
+<button class="photo-viewer-close" id="photoViewerClose" type="button">Back to thumbnails</button>
+</div>
+<img alt="" id="photoViewerImg" src=""/>
+<div class="photo-viewer-caption" id="photoViewerCaption"></div>
+</div>
+</section>
+<!-- MAP -->
+<section aria-labelledby="btn-map" class="tab-panel" id="tab-map" role="tabpanel">
+<h2>Map</h2>
+<div class="map-block">
+<div class="map-top">
+<div class="map-img">
+<img alt="JB Resort site map" src="SiteMap.png"/>
+</div>
+<div class="map-legend">
+<h3 class="section-subtitle" style="margin-top:0;">Legend</h3>
+<ul class="legend-list">
+<li><b>1:</b> Front Cement Pad</li>
+<li><b>2:</b> RV Port</li>
+<li><b>3:</b> Behind Barn</li>
+<li><b>4:</b> Grove</li>
+<li><b>5:</b> Cabin: Stationary RV, Not in Photo.</li>
+</ul>
+</div>
+</div>
+<div class="map-bottom">
+<img alt="JB Resort property overview" src="Property.png"/>
+<img alt="JB Resort City View" src="CityView.png"/>
+</div>
+</div>
+</section>
+<!-- AVAILABLE DATES -->
+<section aria-labelledby="btn-available" class="tab-panel" id="tab-available" role="tabpanel">
+<h2>Available Dates</h2>
+<div class="muted">
+<p>
                 HipCamp and Airbnb work well when you already know your travel dates,
                 but they aren't very helpful for quickly seeing what is currently available.
                 </p>
-
-                <p>
+<p>
                 Please call or text me, Bolton, at <b>863-840-0362</b>,
                 and I'll be happy to help you plan your visit.
-                </p>              
-              </div>
-            </section>
-
-            <!-- DIRECTIONS -->
-            <section class="tab-panel" id="tab-directions" role="tabpanel" aria-labelledby="btn-directions">
-              <h2>Directions</h2>
-              <div class="muted">
-                <p>
-                  JB Resort is located at
-                  <a href="https://www.google.com/maps/search/?api=1&query=3423+Cindys+Ln+Sebring+FL+33870"
-                     target="_blank"
-                     rel="noopener">3423 Cindys Ln, Sebring, FL 33870</a>.
                 </p>
-
-                <h2><u>Big Rigs Coming South on US-27 from Lake Wales</u></h2>
-                <div class="muted">
-                  <p>At the overpass and traffic lights where US-27 meets Route 60 in Lake Wales, continue south on US-27.</p>
-                  <p>Proceed 21.2 miles (past Frost Proof and before Avon Park) to a traffic light at <b>County Road 17A West Truck Route</b>, then turn left. <small>(W. Striker RD would be a right, but don't take that)</small></p>
-                  <p>Proceed 1.9 miles, over railroad tracks, then follow the main road around a 90 degree bend to the right.</p>
-                  <p>Proceed 1.9 miles, through one stop sign, at the next stop sign, make a left onto rt 17 (E. Cornell St).</p>
-                  <p>Follow rt 17 for 5.6 miles through several bends but no traffic lights or stop signs, then (1.3 miles after crossing railroad tracks) make a left onto Arbuckle Creek Rd.  This is actually an access Rd to Arbuckle Creek Rd. Follow this a short distance (500 ft), then take another left onto Arbuckle Creek Rd.</p>
-                  <p>Proceed 1.3 miles (crossing railroad tracks) to a stop sign, and make a right onto Martain Luther King Blvd.</p>
-                  <p>After 0.4 miles, take your first left onto Cindys Lane.</p>
-                  <p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.
-                  <br><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
-                  <p>There is no sign for JB Resort.</p>
-                  <p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
-                </div>
-
-                <h2><u>Big Rigs Coming North on 27</u></h2>
-                <div class="muted">
-                  <p>Before reaching Sebring, you'll come to a traffic light at Routes 66 &amp; 98.</p>
-                  <p>Proceed 3.1 miles to the next traffic light (not counting the fire station signal), then veer right onto Sebring Parkway.</p>
-                  <p>You'll then encounter a tight traffic circle. Larger rigs may technically use both lanes, but many drivers are unaware of this - use caution. Proceed straight through the circle.</p>
-                  <p><b>Continue straight through the following traffic lights:</b></p>
-                  <ul>
-                    <li>Desoto Rd</li>
-                    <li>Youth Care Ln</li>
-                    <li>Kenilworth Blvd</li>
-                    <li>Commerce Ave &amp; School</li>
-                  </ul>
-                  <p>At the next traffic light, <b>E Center Ave</b>, turn right. Cross the train tracks, go up a short hill, a stop sign.</p> 
-                  <p>Turn left onto Martin Luther King Blvd.</p>
-                  <p>Proceed through two stop signs (E.O. Douglass Ave and Lemon Ave). This area can be busy with pedestrians and double-parked vehicles - please drive slowly and remain patient.</p>
-                  <p>Continue straight through a third stop sign at Sunnyland Dr (on the left) and Cemetery Rd (on the right).</p>
-                  <p>Continue straight for 0.6 miles, including a short downhill stretch, then turn right onto Cindys Lane.</p>
-                  <p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.<br>
-                  <br><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
-                  <p>There is no sign for JB Resort.</p>
-                  <p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
-                </div>
-
-                <h2><u>Big Rigs Coming North/West from Okeechobee on 98N</u></h2>
-                <div class="muted">
-                  <p>From Okeechobee, follow 98N for 31.8 miles into Lolita, then make a right onto Arbuckle Creek Rd.</p>
-                  <p>In 1.2 miles, turn left onto (what is still) Arbuckle Creek Rd.</p>
-                  <p>Travel 12.7 miles to the frist stop sign, and make a left onto Martin Luther King Blvd.</p>
-                  <p>After 0.4 miles, take your first left onto Cindys Lane.</p>
-                  <p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.
-                  <br><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
-                  <p>There is no sign for JB Resort.</p>
-                  <p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
-                </div>
-                
-
-              </div>
-            </section>
-
-            <!-- RULES -->
-            <section class="tab-panel" id="tab-rules" role="tabpanel" aria-labelledby="btn-rules">
-              <h2>Details & Rules</h2>
-              <div class="muted">
-                <dl class="rules-list">
-
-                  <dt>Wi-Fi</dt>
-                  <dd>
-                    Netgear4E1D5F (password: sharedsecret);<br>
-                    NetgearBolton5 (password: were88*NOT);<br>
+</div>
+</section>
+<!-- DIRECTIONS -->
+<section aria-labelledby="btn-directions" class="tab-panel" id="tab-directions" role="tabpanel">
+<h2>Directions</h2>
+<div class="muted">
+<p>
+                  JB Resort is located at
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=3423+Cindys+Ln+Sebring+FL+33870" rel="noopener" target="_blank">3423 Cindys Ln, Sebring, FL 33870</a>.
+                </p>
+<h2><u>Big Rigs Coming South on US-27 from Lake Wales</u></h2>
+<div class="muted">
+<p>At the overpass and traffic lights where US-27 meets Route 60 in Lake Wales, continue south on US-27.</p>
+<p>Proceed 21.2 miles (past Frost Proof and before Avon Park) to a traffic light at <b>County Road 17A West Truck Route</b>, then turn left. <small>(W. Striker RD would be a right, but don't take that)</small></p>
+<p>Proceed 1.9 miles, over railroad tracks, then follow the main road around a 90 degree bend to the right.</p>
+<p>Proceed 1.9 miles, through one stop sign, at the next stop sign, make a left onto rt 17 (E. Cornell St).</p>
+<p>Follow rt 17 for 5.6 miles through several bends but no traffic lights or stop signs, then (1.3 miles after crossing railroad tracks) make a left onto Arbuckle Creek Rd.  This is actually an access Rd to Arbuckle Creek Rd. Follow this a short distance (500 ft), then take another left onto Arbuckle Creek Rd.</p>
+<p>Proceed 1.3 miles (crossing railroad tracks) to a stop sign, and make a right onto Martain Luther King Blvd.</p>
+<p>After 0.4 miles, take your first left onto Cindys Lane.</p>
+<p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.
+                  <br/><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
+<p>There is no sign for JB Resort.</p>
+<p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
+</div>
+<h2><u>Big Rigs Coming North on 27</u></h2>
+<div class="muted">
+<p>Before reaching Sebring, you'll come to a traffic light at Routes 66 &amp; 98.</p>
+<p>Proceed 3.1 miles to the next traffic light (not counting the fire station signal), then veer right onto Sebring Parkway.</p>
+<p>You'll then encounter a tight traffic circle. Larger rigs may technically use both lanes, but many drivers are unaware of this - use caution. Proceed straight through the circle.</p>
+<p><b>Continue straight through the following traffic lights:</b></p>
+<ul>
+<li>Desoto Rd</li>
+<li>Youth Care Ln</li>
+<li>Kenilworth Blvd</li>
+<li>Commerce Ave &amp; School</li>
+</ul>
+<p>At the next traffic light, <b>E Center Ave</b>, turn right. Cross the train tracks, go up a short hill, a stop sign.</p>
+<p>Turn left onto Martin Luther King Blvd.</p>
+<p>Proceed through two stop signs (E.O. Douglass Ave and Lemon Ave). This area can be busy with pedestrians and double-parked vehicles - please drive slowly and remain patient.</p>
+<p>Continue straight through a third stop sign at Sunnyland Dr (on the left) and Cemetery Rd (on the right).</p>
+<p>Continue straight for 0.6 miles, including a short downhill stretch, then turn right onto Cindys Lane.</p>
+<p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.<br/>
+<br/><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
+<p>There is no sign for JB Resort.</p>
+<p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
+</div>
+<h2><u>Big Rigs Coming North/West from Okeechobee on 98N</u></h2>
+<div class="muted">
+<p>From Okeechobee, follow 98N for 31.8 miles into Lolita, then make a right onto Arbuckle Creek Rd.</p>
+<p>In 1.2 miles, turn left onto (what is still) Arbuckle Creek Rd.</p>
+<p>Travel 12.7 miles to the frist stop sign, and make a left onto Martin Luther King Blvd.</p>
+<p>After 0.4 miles, take your first left onto Cindys Lane.</p>
+<p>On the left, just past one house, our fenced wooded area, then a knull, our gated driveway will be on the left, with plenty of room to pull in.
+                  <br/><b>Address:</b> 3423 Cindys Ln, Sebring, FL</p>
+<p>There is no sign for JB Resort.</p>
+<p>Let us know when you're close - we'll keep an eye out, and our dogs usually alert us as well. Please text when you are near or at the gate.</p>
+</div>
+</div>
+</section>
+<!-- RULES -->
+<section aria-labelledby="btn-rules" class="tab-panel" id="tab-rules" role="tabpanel">
+<h2>Details &amp; Rules</h2>
+<div class="muted">
+<dl class="rules-list">
+<dt>Wi-Fi</dt>
+<dd>
+                    Netgear4E1D5F (password: sharedsecret);<br/>
+                    NetgearBolton5 (password: were88*NOT);<br/>
                     JamiesBarn (password: JamiesBarn)
                   </dd>
-
-                  <dt>Owner's Dogs</dt>
-                  <dd>
-                    Black (female): Diva;<br>
+<dt>Owner's Dogs</dt>
+<dd>
+                    Black (female): Diva;<br/>
                     White/Tan (female): Artemis
                   </dd>
-
-                  <dt>Your Dogs</dt>
-                  <dd>
+<dt>Your Dogs</dt>
+<dd>
                     Dogs may run free on the property.
                     Please supervise your dog at all times and ensure they do not approach other guests without permission.
                     Respect other guests' preferences regarding interaction with pets.
                   </dd>
-
-                  <dt>Trash</dt>
-                  <dd>
+<dt>Trash</dt>
+<dd>
                     Use any of the three trash cans across the main drive, partially hidden by trees.
                     The county does not recycle.
                     Please do not leave trash outside your RV unless secured—dogs may get into it.
                   </dd>
-
-                  <dt>Pool</dt>
-                  <dd>
+<dt>Pool</dt>
+<dd>
                     Unheated; uses saltwater or chlorine depending on water temperature.
                   </dd>
-
-                  <dt>Hot tub</dt>
-                  <dd>
+<dt>Hot tub</dt>
+<dd>
                     Please rinse before use.
                     Close the lid after use when daytime temperatures are below 70°F.
                   </dd>
-
-                  <dt>Outdoor shower</dt>
-                  <dd>
+<dt>Outdoor shower</dt>
+<dd>
                     Located next to the pool.
                     Water may take up to two minutes to heat and can become very hot.
                   </dd>
-
-                  <dt>Fence</dt>
-                  <dd>
+<dt>Fence</dt>
+<dd>
                     The entire property is fully fenced.
                   </dd>
-
-                  <dt>Washer &amp; Dryer</dt>
-                  <dd>
+<dt>Washer &amp; Dryer</dt>
+<dd>
                     Located in the garage (large silver Quonset hut).
                     Ask for the access code if locked.
                   </dd>
-
-                  <dt>Guests</dt>
-                  <dd>
+<dt>Guests</dt>
+<dd>
                     Please ask Bolton or Jamie before inviting guests.
                     For insurance purposes, all guests must be booked through HipCamp.
                   </dd>
-
-                  <dt>Septic system</dt>
-                  <dd>
+<dt>Septic system</dt>
+<dd>
                     Do not flush wipes, feminine hygiene products, condoms, makeup wipes,
                     or paper towels. These items will clog the septic pump.
                   </dd>
-
-                  <dt>Quiet hours</dt>
-                  <dd>
+<dt>Quiet hours</dt>
+<dd>
                     10:30 PM – 8:00 AM (Sun–Thu); 11:00 PM – 8:00 AM (Fri–Sat)
                   </dd>
-
-                  <dt>Parking</dt>
-                  <dd>
+<dt>Parking</dt>
+<dd>
                     Park only in designated areas.
                     Do not block walkways, doors, or driveways.
                   </dd>
-
-                  <dt>Firewood</dt>
-                  <dd>
+<dt>Firewood</dt>
+<dd>
                     Use by permission only.
                     Limited supply available.
                     Firewood may be purchased at Home Depot or Lowe’s.
                   </dd>
-
-                  <dt>Fires</dt>
-                  <dd>
+<dt>Fires</dt>
+<dd>
                     Fires must be in a portable off-ground pit or designated pit.
                     No fires in grass areas or during county fire bans.
                   </dd>
-
-                  <dt>Personal property</dt>
-                  <dd>
+<dt>Personal property</dt>
+<dd>
                     Owners are not responsible for lost or damaged items.
                     Secure all belongings properly.
                   </dd>
-
-                </dl>
-
-              </div>
-            </section>
-
-          </div>
-        </div>
-
-      </div>
-    </main>
-  </div>
-
-  <script>
+</dl>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
     // =========================
     // 1) GOOGLE SHEETS CSV URLS
     // =========================
